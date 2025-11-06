@@ -27,7 +27,7 @@
                                 <a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.*') ? 'border-primary-500 text-gray-900' : 'border-transparent text-gray-500' }} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
                                     <i class="fas fa-tachometer-alt mr-2"></i>Dashboard
                                 </a>
-                                <a href="{{ route('admin.members.pending') }}" class="{{ request()->routeIs('admin.members.*') ? 'border-primary-500 text-gray-900' : 'border-transparent text-gray-500' }} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                                <a href="{{ route('admin.members.index') }}" class="{{ request()->routeIs('admin.members.*') ? 'border-primary-500 text-gray-900' : 'border-transparent text-gray-500' }} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
                                     <i class="fas fa-users mr-2"></i>Members
                                 </a>
                                 <a href="{{ route('admin.kyc.pending') }}" class="{{ request()->routeIs('admin.kyc.*') ? 'border-primary-500 text-gray-900' : 'border-transparent text-gray-500' }} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
