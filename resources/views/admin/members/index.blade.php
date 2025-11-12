@@ -234,21 +234,22 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 <div class="flex justify-end space-x-2">
-                                    <a href="{{ route('admin.members.approve', $member) }}" 
-                                       class="text-green-600 hover:text-green-900 transition-colors duration-200"
-                                       title="Approve Member">
-                                        <i class="fas fa-check"></i>
-                                    </a>
-                                    <a href="{{ route('admin.members.reject', $member) }}" 
-                                       class="text-red-600 hover:text-red-900 transition-colors duration-200"
-                                       title="Reject Member">
-                                        <i class="fas fa-times"></i>
-                                    </a>
-                                    <a href="#" 
-                                       class="text-blue-600 hover:text-blue-900 transition-colors duration-200"
-                                       title="View Details">
-                                        <i class="fas fa-eye"></i>
-                                    </a>
+                                @if($member->status != 'approved' && $member->status != 'kyc_verified')
+                                    <form action="{{ route('admin.members.approve', $member) }}" method="POST" class="inline">
+                                        @csrf
+                                        <button type="submit" 
+                                                class="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-full shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                                            <i class="fas fa-check mr-1"></i>Approve
+                                        </button>
+                                    </form>
+                                @endif
+                                <form action="{{ route('admin.members.reject', $member) }}" method="POST" class="inline">
+                                    @csrf
+                                    <button type="submit" 
+                                            class="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-full shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                                        <i class="fas fa-times mr-1"></i>Reject
+                                    </button>
+                                </form>
                                 </div>
                             </td>
                         </tr>

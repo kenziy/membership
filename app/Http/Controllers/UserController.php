@@ -56,12 +56,12 @@ class UserController extends Controller
     {
         $user = auth()->user();
     
-        if ($user->isApproved() || $user->isKycVerified()) {
-            return view('user.id-card', [
-                'user' => $user
-            ]);
-        }
-        return redirect()->route('user.dashboard')->with('error', 'Your account is not yet approved.');
+        return view('user.id-card', [
+            'user' => $user
+        ]);
+        // if ($user->isApproved() || $user->isKycVerified()) {
+        // }
+        // return redirect()->route('user.dashboard')->with('error', 'Your account is not yet approved.');
         
     }
 
