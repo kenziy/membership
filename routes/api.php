@@ -7,6 +7,7 @@ use App\Http\Controllers\PublicController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WalletController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SsoController;
 
 // Public routes
 Route::post('/register', [AuthController::class, 'register']);
@@ -43,4 +44,9 @@ Route::middleware(['auth:api', 'admin'])->prefix('admin')->group(function () {
 
     // Wallet management
     Route::post('/wallets/{user}/add', [AdminController::class, 'addCredit']);
+});
+
+Route::prefix('sso')->group(function () {
+    Route::post('/verify', [SsoController::class, 'verifyToken'])->name('api.sso.verify');
+    Route::get('/config', [SsoController::class, 'configuration'])->name('api.sso.config');
 });

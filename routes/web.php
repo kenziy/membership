@@ -7,6 +7,7 @@ use App\Http\Controllers\KycController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\WalletController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SsoController;
 
 // Authentication Routes
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
@@ -60,4 +61,20 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::post('/members/{user}/approve', [AdminController::class, 'approveMember'])->name('admin.members.approve');
     Route::post('/members/{user}/reject', [AdminController::class, 'rejectMember'])->name('admin.members.reject');
     Route::post('/members/{user}/toggle-vip', [AdminController::class, 'toggleVip'])->name('admin.members.toggle-vip');
+});
+
+Route::prefix('sso')->group(function () {
+    // Initiate SSO flows
+    Route::get('/login', [SsoController::class, 'login'])->name('sso.login');
+    Route::get('/register', [SsoController::class, 'register'])->name('sso.register');
+    
+    // Process SSO actions
+    Route::post('/process-login', [SsoController::class, 'processLogin'])->name('sso.process-login');
+    Route::post('/process-register', [SsoController::class, 'processRegister'])->name('sso.process-register');
+    
+    // Token verification (for client apps)
+    Route::post('/verify', [SsoController::class, 'verifyToken'])->name('sso.verify');
+    
+    // Configuration endpoint
+    Route::get('/config', [SsoController::class, 'configuration'])->name('sso.config');
 });
