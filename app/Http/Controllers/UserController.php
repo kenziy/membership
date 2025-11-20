@@ -34,6 +34,9 @@ class UserController extends Controller
 
     public function kyc()
     {
+        if (auth()->user()->status < 1) {
+            abort(404);
+        }
         $documents = auth()->user()->kycDocuments()->latest()->get();
         
         return view('user.kyc', [

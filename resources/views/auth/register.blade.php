@@ -3,74 +3,96 @@
 @section('title', 'Register - Membership App')
 
 @section('content')
-<div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-md w-full space-y-8">
-        <div>
-            <div class="mx-auto h-12 w-12 bg-blue-500 rounded-full flex items-center justify-center">
-                <i class="fas fa-user-plus text-white text-xl"></i>
-            </div>
-            <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-                Create your account
+<div class="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+
+    <div class="max-w-md w-full">
+
+        <!-- Header -->
+        <div class="text-center mb-10">
+            <h2 class="text-3xl font-extrabold text-gray-900 tracking-tight">
+                Create Your Account
             </h2>
-            <p class="mt-2 text-center text-sm text-gray-600">
+            <p class="mt-1 text-sm text-gray-600">
                 Join our membership program
             </p>
         </div>
-        <form class="mt-8 space-y-6" action="{{ route('register') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <div class="space-y-4">
-                <div>
-                    <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
-                    <input id="name" name="name" type="text" required 
-                           class="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                           placeholder="John Doe" value="{{ old('name') }}">
+
+        <!-- Form Card -->
+        <div class="bg-white rounded-2xl shadow-lg p-8 border border-gray-100">
+            <form class="space-y-6" action="{{ route('register') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+
+                <div class="space-y-4">
+
+                    <!-- Name -->
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                        <input 
+                            id="name" name="name" type="text" required
+                            placeholder="John Doe"
+                            value="{{ old('name') }}"
+                            class="w-full py-3 px-4 rounded-lg border border-gray-300 
+                                   focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition"
+                        >
+                    </div>
+
+                    <!-- Email -->
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                        <input 
+                            id="email" name="email" type="email" required
+                            placeholder="john@example.com"
+                            value="{{ old('email') }}"
+                            class="w-full py-3 px-4 rounded-lg border border-gray-300 
+                                   focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition"
+                        >
+                    </div>
+
+                    <!-- Password -->
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                        <input 
+                            id="password" name="password" type="password" required
+                            placeholder="••••••••"
+                            class="w-full py-3 px-4 rounded-lg border border-gray-300 
+                                   focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition"
+                        >
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div>
+                        <label for="password_confirmation" class="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
+                        <input 
+                            id="password_confirmation" name="password_confirmation" type="password" required
+                            placeholder="••••••••"
+                            class="w-full py-3 px-4 rounded-lg border border-gray-300 
+                                   focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition"
+                        >
+                    </div>
+
                 </div>
 
+                <!-- Submit Button -->
                 <div>
-                    <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
-                    <input id="email" name="email" type="email" autocomplete="email" required 
-                           class="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                           placeholder="john@example.com" value="{{ old('email') }}">
+                    <button type="submit"
+                        class="w-full py-3 px-4 rounded-lg bg-aether hover:bg-orange-700 
+                               text-white font-semibold shadow-md transition-all flex items-center justify-center">
+                        Create Account
+                    </button>
                 </div>
 
-                <div>
-                    <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                    <input id="password" name="password" type="password" required 
-                           class="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                           placeholder="••••••••">
+                <!-- Already Have Account -->
+                <div class="text-center pt-2">
+                    <a href="{{ route('login') }}" 
+                       class="font-semibold aether hover:text-orange-500 transition">
+                        Already have an account? Sign in
+                    </a>
                 </div>
 
-                <div>
-                    <label for="password_confirmation" class="block text-sm font-medium text-gray-700">Confirm Password</label>
-                    <input id="password_confirmation" name="password_confirmation" type="password" required 
-                           class="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                           placeholder="••••••••">
-                </div>
+            </form>
+        </div>
 
-                <div>
-                    <label for="profile_photo" class="block text-sm font-medium text-gray-700">Profile Photo (Optional)</label>
-                    <input id="profile_photo" name="profile_photo" type="file" 
-                           class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
-                           accept="image/*">
-                </div>
-            </div>
-
-            <div>
-                <button type="submit" 
-                        class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                    <span class="absolute left-0 inset-y-0 flex items-center pl-3">
-                        <i class="fas fa-user-plus text-blue-500 group-hover:text-blue-400"></i>
-                    </span>
-                    Create Account
-                </button>
-            </div>
-
-            <div class="text-center">
-                <a href="{{ route('login') }}" class="font-medium text-blue-600 hover:text-blue-500">
-                    Already have an account? Sign in
-                </a>
-            </div>
-        </form>
     </div>
+
 </div>
 @endsection

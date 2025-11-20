@@ -53,14 +53,14 @@ class AuthController extends Controller
             return back()->withErrors(['email' => 'Invalid credentials'])->withInput();
         }
 
-        if ($user->status === 'pending') {
+        if ($user->status === 0) {
             if ($request->expectsJson()) {
                 return response()->json(['message' => 'Account pending approval'], 403);
             }
             return back()->withErrors(['email' => 'Account pending approval'])->withInput();
         }
 
-        if ($user->status === 'rejected') {
+        if ($user->status === -1) {
             if ($request->expectsJson()) {
                 return response()->json(['message' => 'Account has been rejected'], 403);
             }
@@ -100,7 +100,7 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'status' => 'pending',
+            'status' => 0,
         ];
 
         // Handle profile photo upload

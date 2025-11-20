@@ -110,7 +110,7 @@ class AdminController extends Controller
     // API Methods for Web Forms
     public function approveMember(Request $request, User $user)
     {
-        if ($user->status !== 'pending') {
+        if ($user->status !== 0) {
             return back()->with('error', 'User is not pending approval.');
         }
 
@@ -122,7 +122,7 @@ class AdminController extends Controller
         
         // Update user
         $user->update([
-            'status' => 'approved',
+            'status' => 1,
             'member_id' => $memberId,
             'qr_code_path' => $qrCodePath,
         ]);
@@ -135,7 +135,7 @@ class AdminController extends Controller
 
     public function rejectMember(Request $request, User $user)
     {
-        $user->update(['status' => 'rejected']);
+        $user->update(['status' => -1]);
 
         return back()->with('success', 'Member rejected successfully.');
     }
@@ -147,7 +147,7 @@ class AdminController extends Controller
         // Check if user has any approved KYC documents
         $user = $kyc->user;
         if ($user->kycDocuments()->approved()->exists()) {
-            $user->update(['status' => 'kyc_verified']);
+            $user->update(['status' => 2]);
         }
 
         return back()->with('success', 'KYC document approved successfully.');

@@ -3,64 +3,72 @@
 @section('title', 'Login - Membership App')
 
 @section('content')
-    <div class="max-w-md w-full">
-        <!-- Header -->
-        <div class="text-center mb-8">
-            <div class="mx-auto h-16 w-16 bg-blue-600 rounded-full flex items-center justify-center mb-4">
-                <i class="fas fa-sign-in-alt text-white text-2xl"></i>
+    
+    <div class="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+        <div class="max-w-md w-full">
+            <div class="text-center mb-10">
+                <h1 class="text-3xl font-extrabold text-gray-900">Sign in</h1>
+                <p class="text-gray-600 mt-1">
+                    Sign in to continue to <span class="font-semibold aether">{{ $client_id }}</span>
+                </p>
             </div>
-            <h1 class="text-3xl font-bold text-gray-900">SSO Login</h1>
-            <p class="text-gray-600 mt-2">Sign in to continue to <span class="font-semibold">{{ $client_id }}</span></p>
+
+            <!-- Login Card -->
+            <div class="bg-white rounded-2xl shadow-lg p-8 border border-gray-100">
+                <form id="loginForm" class="space-y-6">
+                    @csrf
+
+                    <!-- Email -->
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                        <input 
+                            type="email"
+                            id="email"
+                            name="email"
+                            required
+                            placeholder="Enter your email"
+                            class="w-full py-3 px-4 rounded-lg border border-gray-300 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition"
+                        >
+                    </div>
+
+                    <!-- Password -->
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                        <input 
+                            type="password"
+                            id="password"
+                            name="password"
+                            required
+                            placeholder="Enter your password"
+                            class="w-full py-3 px-4 rounded-lg border border-gray-300 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition"
+                        >
+                    </div>
+
+                    <!-- Button -->
+                    <div>
+                        <button 
+                            type="submit"
+                            class="w-full py-3 px-4 rounded-lg bg-aether hover:bg-orange-700 
+                                   text-white font-semibold shadow-md transition-all"
+                        >
+                            Sign In
+                        </button>
+                    </div>
+
+                    <!-- Signup Link -->
+                    <div class="text-center pt-2">
+                        <p class="text-sm text-gray-600">
+                            Don't have an account?
+                            <a href="{{ route('sso.register', ['return_url' => $return_url, 'client_id' => $client_id]) }}" 
+                               class="font-semibold aether hover:text-orange-500 transition">
+                                Sign up
+                            </a>
+                        </p>
+                    </div>
+                </form>
+            </div>
         </div>
 
-        <!-- Login Card -->
-        <div class="bg-white rounded-2xl shadow-xl p-8">
-            <form id="loginForm" class="space-y-6">
-                @csrf
-
-                <div>
-                    <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
-                    <input type="email" id="email" name="email" required
-                           class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-3 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                           placeholder="Enter your email">
-                </div>
-
-                <div>
-                    <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                    <input type="password" id="password" name="password" required
-                           class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-3 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                           placeholder="Enter your password">
-                </div>
-
-                <div>
-                    <button type="submit" 
-                            class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
-                        <i class="fas fa-sign-in-alt mr-2"></i>
-                        Sign In
-                    </button>
-                </div>
-
-                <div class="text-center">
-                    <p class="text-sm text-gray-600">
-                        Don't have an account? 
-                        <a href="{{ route('sso.register', ['return_url' => $return_url, 'client_id' => $client_id]) }}" 
-                           class="font-medium text-blue-600 hover:text-blue-500">
-                            Sign up
-                        </a>
-                    </p>
-                </div>
-            </form>
-        </div>
-
-        <!-- Footer -->
-        <div class="text-center mt-6">
-            <p class="text-sm text-gray-500">
-                &copy; {{ date('Y') }} Membership App. All rights reserved.
-            </p>
-            <p class="text-xs text-gray-400 mt-1">
-                Secure single sign-on authentication
-            </p>
-        </div>
     </div>
 
     <script>

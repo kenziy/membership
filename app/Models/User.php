@@ -157,12 +157,12 @@ class User extends Authenticatable
 
     public function isApproved(): bool
     {
-        return $this->status === 'approved';
+        return $this->status === 1;
     }
 
     public function isKycVerified(): bool
     {
-        return $this->status === 'kyc_verified';
+        return $this->status === 2;
     }
 
     public function hasPendingKyc(): bool

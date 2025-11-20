@@ -14,7 +14,7 @@ class UserFactory extends Factory
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
             'password' => Hash::make('password'),
-            'status' => $this->faker->randomElement(['pending', 'approved', 'kyc_verified']),
+            'status' => $this->faker->randomElement([0, 1, 2]),
             'remember_token' => Str::random(10),
         ];
     }

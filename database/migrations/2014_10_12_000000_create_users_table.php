@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->enum('status', ['pending', 'approved', 'rejected', 'kyc_pending', 'kyc_verified'])->default('pending');
+            $table->integer('status')->default(0);
             $table->string('member_id')->unique()->nullable();
             $table->string('profile_photo_path')->nullable();
             $table->string('qr_code_path')->nullable();

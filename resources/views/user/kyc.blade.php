@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('title', 'KYC Verification - Membership App')
+@section('title', 'Identity Verification - Membership App')
 
 @section('content')
 <div class="max-w-4xl mx-auto py-6 sm:px-6 lg:px-8">
     <div class="px-4 py-6 sm:px-0">
         <div class="mb-8">
-            <h1 class="text-2xl font-bold text-gray-900">KYC Verification</h1>
+            <h1 class="text-2xl font-bold text-gray-900">Identity Verification</h1>
             <p class="text-gray-600">Upload your identification documents for verification</p>
         </div>
 
@@ -43,70 +43,91 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <!-- Upload Form -->
-            <div class="bg-white shadow rounded-lg">
-                <div class="px-6 py-4 border-b border-gray-200">
-                    <h3 class="text-lg font-medium text-gray-900">Upload Document</h3>
-                </div>
-                <div class="p-6">
-                    <form action="{{ route('user.kyc.upload') }}" method="POST" enctype="multipart/form-data" id="kycForm">
-                        @csrf
-                        <div class="space-y-4">
-                            <div>
-                                <label for="document_type" class="block text-sm font-medium text-gray-700">Document Type *</label>
-                                <select id="document_type" name="document_type" required 
-                                        class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm rounded-md">
-                                    <option value="">Select document type</option>
-                                    <option value="Passport">Passport</option>
-                                    <option value="Driver's License">Driver's License</option>
-                                    <option value="National ID">National ID</option>
-                                    <option value="Utility Bill">Utility Bill</option>
-                                    <option value="Bank Statement">Bank Statement</option>
-                                </select>
-                            </div>
+                @if(!auth()->user()->isKycVerified())
+                    <div class="bg-white shadow rounded-lg">
+                        <div class="px-6 py-4 border-b border-gray-200">
+                            <h3 class="text-lg font-medium text-gray-900">Upload Document</h3>
+                        </div>
+                        <div class="p-6">
+                            <form action="{{ route('user.kyc.upload') }}" method="POST" enctype="multipart/form-data" id="  kycForm">
+                                @csrf
+                                <div class="space-y-4">
+                                    <div>
+                                        <label for="document_type" class="block text-sm font-medium text-gray-700">Document Type *</label>
+                                        <select id="document_type" name="document_type" required 
+                                                class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-gray-500 sm:text-sm rounded-md border">
+                                            <option value="">Select document type</option>
+                                            <option value="Passport">Passport</option>
+                                            <option value="Driver's License">Driver's License</option>
+                                            <option value="National ID">National ID</option>
+                                            <option value="Utility Bill">Utility Bill</option>
+                                            <option value="Bank Statement">Bank Statement</option>
+                                        </select>
+                                    </div>
 
-                            <div>
-                                <label for="document_number" class="block text-sm font-medium text-gray-700">Document Number (Optional)</label>
-                                <input type="text" id="document_number" name="document_number" 
-                                       class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
-                                       placeholder="e.g., AB123456">
-                            </div>
+                                    <div>
+                                        <label for="document_number" class="block text-sm font-medium text-gray-700">Document Number (Optional)</label>
+                                        <input type="text" id="document_number" name="document_number" 
+                                               class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                                               placeholder="e.g., AB123456">
+                                    </div>
 
-                            <div x-data="{ isDragging: false }" 
-                                 @drop.prevent="isDragging = false; handleFileDrop($event)"
-                                 @dragover.prevent="isDragging = true"
-                                 @dragleave.prevent="isDragging = false"
-                                 class="mt-1">
-                                <label class="block text-sm font-medium text-gray-700">Document Image *</label>
-                                <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-dashed rounded-md transition-colors duration-200"
-                                     :class="isDragging ? 'border-primary-400 bg-primary-50' : 'border-gray-300'">
-                                    <div class="space-y-1 text-center">
-                                        <i class="fas fa-cloud-upload-alt text-gray-400 text-3xl"></i>
-                                        <div class="flex text-sm text-gray-600 justify-center">
-                                            <label for="image" class="relative cursor-pointer bg-white rounded-md font-medium text-primary-600 hover:text-primary-500 focus-within:outline-none">
-                                                <span>Upload a file</span>
-                                                <input id="image" name="image" type="file" class="sr-only" accept="image/*" required @change="previewFile">
-                                            </label>
-                                            <p class="pl-1">or drag and drop</p>
-                                        </div>
-                                        <p class="text-xs text-gray-500">PNG, JPG up to 5MB</p>
-                                        <div id="filePreview" class="hidden mt-2">
-                                            <img id="previewImage" class="mx-auto h-32 object-contain rounded">
-                                            <p id="fileName" class="text-sm text-gray-600 mt-1"></p>
+                                    <div x-data="{ 
+                                            isDragging: false,
+                                            handleClick() { this.$refs.fileInput.click() }
+                                        }"
+                                        @drop.prevent="isDragging = false; handleFileDrop($event)"
+                                        @dragover.prevent="isDragging = true"
+                                        @dragleave.prevent="isDragging = false"
+                                        class="mt-1">
+
+                                    <label class="block text-sm font-medium text-gray-700">Document Image *</label>
+
+                                    <div  @click="handleClick"
+                                          class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-dashed rounded-md cursor-pointer transition-colors duration-200"
+                                          :class="isDragging ? 'border-primary-400 bg-primary-50' : 'border-gray-300'">
+
+                                        <div class="space-y-1 text-center">
+                                            <i class="fas fa-cloud-upload-alt text-gray-400 text-3xl"></i>
+
+                                            <div class="flex text-sm text-gray-600 justify-center">
+                                                <span class="font-medium text-primary-600 hover:text-primary-500">
+                                                    Click to upload
+                                                </span>
+                                                <p class="pl-1">or drag and drop</p>
+                                            </div>
+
+                                            <p class="text-xs text-gray-500">PNG, JPG up to 5MB</p>
+
+                                            <div id="filePreview" class="hidden mt-2">
+                                                <img id="previewImage" class="mx-auto h-32 object-contain rounded">
+                                                <p id="fileName" class="text-sm text-gray-600 mt-1"></p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
 
-                            <div>
-                                <button type="submit" 
-                                        class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors duration-200">
-                                    <i class="fas fa-upload mr-2"></i>Upload Document
-                                </button>
-                            </div>
+                                    <input x-ref="fileInput"
+                                       id="image"
+                                       name="image"
+                                       type="file"
+                                       class="hidden"
+                                       accept="image/*"
+                                       required
+                                       @change="previewFile" />
+                                </div>
+
+
+                                    <div>
+                                        <button type="submit" 
+                                                class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-orange-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-colors duration-200">
+                                            Upload Document
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                    </form>
-                </div>
-            </div>
+                    </div>
+                @endif
 
             <!-- Uploaded Documents -->
             <div class="bg-white shadow rounded-lg">
