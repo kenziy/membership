@@ -8,7 +8,7 @@ use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Facades\Image;
+use Intervention\Image\Laravel\Facades\Image;
 use Illuminate\Support\Str;
 
 class UserController extends Controller
@@ -76,6 +76,23 @@ class UserController extends Controller
         ]);
     }
 
+    public function profileUpdate(Request $request)
+    {
+        $user = auth()->user();
+
+        // Validate inputs
+        $validated = $request->validate([
+            'name'  => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'address'  => 'max:500',
+        ]);
+
+        // Update user
+        $user->update($validated);
+
+        return back()->with('success', 'Profile updated successfully.');
+    }
+
     public function uploadProfilePhoto(Request $request)
     {
         $request->validate([
@@ -89,9 +106,15 @@ class UserController extends Controller
             Storage::disk('public')->delete($user->profile_photo_path);
         }
 
-        // Store new profile photo
-        $image = Image::make($request->file('profile_photo'))->fit(200, 200)->encode('jpg', 85);
-        $filename = 'profile_photos/' . Str::uuid() . '.jpg';
+
+        $image = Image::read($request->file('profile_photo'))
+            ->resize(200, 200, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            })
+            ->encodeByExtension('webp', quality: 85);
+
+        $filename = 'profile_photos/' . Str::uuid() . '.webp';
         
         Storage::disk('public')->put($filename, $image);
         

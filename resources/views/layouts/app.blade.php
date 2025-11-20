@@ -50,13 +50,10 @@
                                         Verification
                                     </a>
                                 @endif
-                                @if(Auth()->user()->status > 1 )
+                            @if(Auth()->user()->status > 1 )
                                     <a href="{{ route('user.id-card') }}" class="{{ request()->routeIs('user.id-card') ? 'border-primary-500 text-gray-900' : 'border-transparent text-gray-500' }} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
                                         Digital ID
                                     </a>
-                                <!-- <a href="{{ route('user.wallet') }}" class="{{ request()->routeIs('user.wallet') ? 'border-primary-500 text-gray-900' : 'border-transparent text-gray-500' }} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                                    <i class="fas fa-wallet mr-2"></i>Wallet
-                                </a> -->
                                 @endif
                             @endif
                         @endauth

@@ -27,10 +27,10 @@ class KycController extends Controller
                 $constraint->aspectRatio();
                 $constraint->upsize();
             })
-            ->encodeByExtension('jpg', quality: 85);
+            ->encodeByExtension('webp', quality: 85);
 
         // Generate a unique file name
-        $filename = 'kyc_docs/' . $user->id . '/' . Str::uuid() . '.jpg';
+        $filename = 'kyc_docs/' . $user->id . '/' . Str::uuid() . '.webp';
 
         // Store in public disk
         Storage::disk('public')->put($filename, (string) $image);

@@ -25,6 +25,7 @@ Route::middleware(['auth'])->group(function () {
     
     // Profile
     Route::get('/profile', [UserController::class, 'profile'])->name('user.profile');
+    Route::post('/profile', [UserController::class, 'profileUpdate'])->name('user.profile.update');
     Route::post('/profile/photo', [UserController::class, 'uploadProfilePhoto'])->name('user.profile.photo');
     
     // KYC

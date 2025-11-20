@@ -8,10 +8,6 @@
         
         <!-- Logo / Icon -->
         <div class="flex flex-col items-center">
-            <div class="h-14 w-14 bg-aether rounded-full flex items-center justify-center shadow-md">
-                <i class="fas fa-id-card text-white text-2xl"></i>
-            </div>
-
             <h2 class="mt-6 text-center text-3xl font-bold text-gray-900">
                 Sign in to your account
             </h2>
@@ -46,7 +42,6 @@
             <div class="pt-2">
                 <button type="submit"
                         class="w-full flex justify-center items-center gap-2 py-3 px-4 text-sm font-medium rounded-lg text-white bg-aether hover:opacity-90 focus:ring-2 focus:ring-offset-2 focus:ring-aether transition">
-                    <i class="fas fa-lock"></i>
                     Sign in
                 </button>
             </div>
