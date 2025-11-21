@@ -66,7 +66,7 @@
                     <div class="ml-3 relative">
                         <button @click="userMenuOpen = !userMenuOpen" class="flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
 
-                            @if($user->profile_photo_path)
+                            @if(auth()->user()->profile_photo_path)
                                 <img src="{{ Storage::url($user->profile_photo_path) }}" class="-8 w-8 rounded-full bg-aether flex items-center justify-center" />
                             @else
                                 <div class="h-8 w-8 rounded-full bg-aether flex items-center justify-center text-white font-semibold">{{ substr(auth()->user()->name, 0, 1) }}</div>
