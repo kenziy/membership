@@ -110,12 +110,9 @@ class AdminController extends Controller
     // API Methods for Web Forms
     public function approveMember(Request $request, User $user)
     {
-        if ($user->status !== 0) {
-            return back()->with('error', 'User is not pending approval.');
-        }
 
         // Generate member ID
-        $memberId = 'MBR-' . date('Ymd') . '-' . Str::padLeft($user->id, 4, '0');
+        $memberId = 'AETH-' . date('Ymd') . '-' . Str::padLeft($user->id, 4, '0');
         
         // Generate QR code
         $qrCodePath = $this->generateQrCode($memberId);

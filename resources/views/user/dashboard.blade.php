@@ -109,16 +109,11 @@
                 <p class="mt-2 text-gray-500 text-sm">
                     You now have full access to your AetherPay account and all available services.
                 </p>
-
-                <a href="/dashboard"
-                   class="inline-block mt-4 px-5 py-2 bg-orange-600 text-white rounded-lg hover:bg-blue-700">
-                    Go to Dashboard
-                </a>
             </div>
         </template>
 
         <!-- APPLICATION REJECTED -->
-        <template x-if="progress === 4">
+        <template x-if="progress === -1">
             <div>
                 <h2 class="text-xl font-semibold text-red-600">Application Rejected</h2>
                 <p class="mt-2 text-gray-600">

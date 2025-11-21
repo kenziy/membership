@@ -56,9 +56,6 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     // Member Management
     Route::get('/members', [AdminController::class, 'membersIndex'])->name('admin.members.index');
     Route::get('/members/pending', [AdminController::class, 'pendingMembers'])->name('admin.members.pending');
-    Route::get('/members/pending', [AdminController::class, 'pendingMembers'])->name('admin.members.pending');
-    Route::post('/members/{user}/approve', [AdminController::class, 'approveMember'])->name('admin.members.approve');
-    Route::post('/members/{user}/reject', [AdminController::class, 'rejectMember'])->name('admin.members.reject');
     Route::post('/members/{user}/approve', [AdminController::class, 'approveMember'])->name('admin.members.approve');
     Route::post('/members/{user}/reject', [AdminController::class, 'rejectMember'])->name('admin.members.reject');
     Route::post('/members/{user}/toggle-vip', [AdminController::class, 'toggleVip'])->name('admin.members.toggle-vip');

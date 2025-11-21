@@ -86,69 +86,6 @@
             </div>
         </div>
 
-        <!-- Filters and Search -->
-        <div class="bg-white shadow rounded-lg mb-6">
-            <div class="px-6 py-4 border-b border-gray-200">
-                <h3 class="text-lg font-medium text-gray-900">Filters & Search</h3>
-            </div>
-            <div class="p-6">
-                <form method="GET" action="{{ route('admin.members.index') }}">
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                        <!-- Search -->
-                        <div>
-                            <label for="search" class="block text-sm font-medium text-gray-700">Search</label>
-                            <input type="text" name="search" id="search" value="{{ $search }}"
-                                   class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
-                                   placeholder="Name, Email, or Member ID">
-                        </div>
-
-                        <!-- Status Filter -->
-                        <div>
-                            <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
-                            <select name="status" id="status" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm rounded-md">
-                                <option value="">All Statuses</option>
-                                <option value="pending" {{ $status == 'pending' ? 'selected' : '' }}>Pending</option>
-                                <option value="approved" {{ $status == 'approved' ? 'selected' : '' }}>Approved</option>
-                                <option value="kyc_verified" {{ $status == 'kyc_verified' ? 'selected' : '' }}>KYC Verified</option>
-                                <option value="kyc_pending" {{ $status == 'kyc_pending' ? 'selected' : '' }}>KYC Pending</option>
-                            </select>
-                        </div>
-
-                        <!-- KYC Status Filter -->
-                        <div>
-                            <label for="kyc_status" class="block text-sm font-medium text-gray-700">KYC Status</label>
-                            <select name="kyc_status" id="kyc_status" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm rounded-md">
-                                <option value="">All KYC Status</option>
-                                <option value="no_kyc" {{ $kycStatus == 'no_kyc' ? 'selected' : '' }}>No KYC Submitted</option>
-                                <option value="pending_review" {{ $kycStatus == 'pending_review' ? 'selected' : '' }}>KYC Pending Review</option>
-                                <option value="has_kyc" {{ $kycStatus == 'has_kyc' ? 'selected' : '' }}>Has KYC Documents</option>
-                            </select>
-                        </div>
-
-                        <!-- VIP Status Filter -->
-                        <div>
-                            <label for="vip_status" class="block text-sm font-medium text-gray-700">VIP Status</label>
-                            <select name="vip_status" id="vip_status" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm rounded-md">
-                                <option value="">All Members</option>
-                                <option value="vip" {{ $vipStatus == 'vip' ? 'selected' : '' }}>VIP Only</option>
-                                <option value="regular" {{ $vipStatus == 'regular' ? 'selected' : '' }}>Regular Only</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="mt-4 flex space-x-3">
-                        <button type="submit" 
-                                class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
-                            <i class="fas fa-filter mr-2"></i>Apply Filters
-                        </button>
-                        <a href="{{ route('admin.members.index') }}" 
-                           class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
-                            <i class="fas fa-times mr-2"></i>Clear Filters
-                        </a>
-                    </div>
-                </form>
-            </div>
-        </div>
 
         <!-- Members Table -->
         <div class="bg-white shadow overflow-hidden sm:rounded-lg">
@@ -166,7 +103,6 @@
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">KYC</th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">VIP</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Wallet</th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Registered</th>
                             <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                         </tr>
@@ -195,12 +131,7 @@
                                 </div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium 
-                                    {{ $member->status === 'approved' ? 'bg-green-100 text-green-800' : 
-                                       ($member->status === 'rejected' ? 'bg-red-100 text-red-800' : 
-                                       ($member->status === 'kyc_verified' ? 'bg-blue-100 text-blue-800' : 'bg-yellow-100 text-yellow-800')) }}">
-                                    {{ ucfirst(str_replace('_', ' ', $member->status)) }}
-                                </span>
+                                {!! $member->status() !!}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium 
@@ -226,15 +157,12 @@
                                 </div>
                                 @endif
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                ${{ number_format($member->wallet?->balance ?? 0, 2) }}
-                            </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                 {{ $member->created_at->format('M j, Y') }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 <div class="flex justify-end space-x-2">
-                                @if($member->status != 'approved' && $member->status != 'kyc_verified')
+                                @if($member->status < 1)
                                     <form action="{{ route('admin.members.approve', $member) }}" method="POST" class="inline">
                                         @csrf
                                         <button type="submit" 

@@ -20,7 +20,7 @@
                 <div class="flex">
                     <div class="flex-shrink-0 flex items-center">
                         <a href="{{ url('/') }}">
-                            <img src="https://www.aetherpay.ai/images/logo.svg" />
+                            <img src="{{ url('/images/logo.svg')}}" />
                         </a>
                     </div>
                     

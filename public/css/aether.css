@@ -5,3 +5,96 @@
 .aether {
 	color: #E5A900;
 }
+
+:root {
+    --charcoal: #33363B;
+    --gold: #FFC300;
+    --light-gold: #FCEF8A; /* Used for subtle gradients/highlights */
+}
+
+
+/*id*/
+.id-card {
+    width: 100%;
+    max-width: 450px;
+    height: 280px; /* Maintains the 1.6:1 ratio for desktop/tablet */
+    background-color: var(--charcoal);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Custom Diagonal Shapes Layer */
+.diagonal-shape {
+    position: absolute;
+    z-index: 0;
+    /* Use a combination of gold and light-gold for the metallic look */
+    background: linear-gradient(135deg, var(--gold) 0%, var(--light-gold) 100%);
+}
+
+/* Shape 1: Large primary bottom-left gold block */
+.shape-1 {
+    width: 150%;
+    height: 100%;
+    bottom: -50%;
+    left: -50%;
+    transform: rotate(-30deg) skewX(-15deg);
+    opacity: 0.9;
+}
+
+/* Shape 2: Thin upper diagonal accent */
+.shape-2 {
+    width: 100%;
+    height: 8px;
+    top: 20%;
+    left: -10%;
+    transform: rotate(-10deg);
+    opacity: 0.6;
+    background: var(--light-gold);
+}
+
+/* Shape 3: Thin lower diagonal accent */
+.shape-3 {
+    width: 80%;
+    height: 4px;
+    top: 55%;
+    left: 30%;
+    transform: rotate(-10deg);
+    opacity: 0.8;
+    background: var(--light-gold);
+}
+
+/* Shape 4: Thin, steep accent */
+.shape-4 {
+    width: 50%;
+    height: 2px;
+    top: 15%;
+    right: 0%;
+    transform: rotate(50deg);
+    opacity: 0.5;
+    background: var(--light-gold);
+}
+
+/* Shape 5: Thin, steep accent */
+.shape-5 {
+    width: 50%;
+    height: 2px;
+    top: 25%;
+    right: 0%;
+    transform: rotate(50deg);
+    opacity: 0.8;
+    background: var(--light-gold);
+}
+
+/* Profile picture ring (Gold border) */
+.profile-ring {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border: 4px solid var(--gold);
+}
+
+/* Responsive height adjustment for smaller screens to maintain ratio */
+@media (max-width: 600px) {
+    .id-card {
+        height: 230px; /* Slightly smaller height for smaller devices */
+    }
+}

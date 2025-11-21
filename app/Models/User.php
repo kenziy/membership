@@ -166,6 +166,26 @@ class User extends Authenticatable
         return $this->status === 2;
     }
 
+    public function status() {
+        $status = '<span class="inline-flex px-3 py-1 rounded-full text-sm font-medium
+                     bg-red-100 text-red-800 ">Rejected</span>';
+        switch($this->status) {
+            case 0:
+                $status = '<span class="inline-flex px-3 py-1 rounded-full text-sm font-medium
+                     bg-gray-100 text-gray-800 ">Pending</span>';
+            break;
+            case 1:
+                $status = '<span class="inline-flex px-3 py-1 rounded-full text-sm font-medium
+                     bg-orange-100 text-orange-800 ">Approved</span>';
+            break;
+            case 2:
+                $status = '<span class="inline-flex px-3 py-1 rounded-full text-sm font-medium
+                     bg-green-100 text-green-800 ">Verified</span>';
+            break;
+        }
+        return $status;
+    }
+
     public function hasPendingKyc(): bool
     {
         return $this->kycDocuments()->where('status', 'pending')->exists();

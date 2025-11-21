@@ -53,12 +53,7 @@
             <div class="bg-white shadow rounded-xl p-6">
                 <h3 class="text-lg font-semibold text-gray-900 mb-3">Membership Status</h3>
 
-                <span class="inline-flex px-3 py-1 rounded-full text-sm font-medium
-                    @if($user->status === 'approved') bg-green-100 text-green-800
-                    @elseif($user->status === 'rejected') bg-red-100 text-red-800
-                    @else bg-yellow-100 text-yellow-800 @endif">
-                    {{ ucfirst($user->status) }}
-                </span>
+                {!! $user->status() !!}
 
                 @if($user->member_id)
                 <p class="mt-4 text-sm">
@@ -100,13 +95,13 @@
                         <div>
                             <label class="text-sm font-medium text-gray-700">Email Address</label>
                             <input type="email" name="email" value="{{ $user->email }}"
-                                   class="mt-1 block w-full rounded-lg border-gray-300 border p-2" disabled>
+                                   class="mt-1 block w-full rounded-lg border-gray-300 border p-2" />
                         </div>
 
                     </div>
                     <div>
                         <label class="text-sm font-medium text-gray-700">Address</label>
-                        <input type="text" name="name" value="{{ $user->address }}"
+                        <input type="text" name="address" value="{{ $user->address }}"
                                class="mt-1 block w-full rounded-lg border-gray-300 focus:ring-aether border p-2" />
                     </div>
 
