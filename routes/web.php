@@ -36,6 +36,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/wallet', [UserController::class, 'wallet'])->name('user.wallet');
     
     // ID Card
+    Route::get('/id-card/{id_number}/svg', [UserController::class, 'idCardSvG'])->name('user.id-card');
     Route::get('/id-card', [UserController::class, 'idCard'])->name('user.id-card');
 });
 

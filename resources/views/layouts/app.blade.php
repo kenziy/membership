@@ -146,26 +146,23 @@
                 @auth
                     @if(auth()->user()->isAdmin())
                         <a href="{{ route('admin.dashboard') }}" class="bg-primary-50 border-primary-500 text-primary-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">
-                            <i class="fas fa-tachometer-alt mr-2"></i>Dashboard
+                            Dashboard
                         </a>
                         <a href="{{ route('admin.members.pending') }}" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">
-                            <i class="fas fa-users mr-2"></i>Members
+                            Members
                         </a>
                         <a href="{{ route('admin.kyc.pending') }}" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">
                             <i class="fas fa-id-card mr-2"></i>KYC Review
                         </a>
                     @else
                         <a href="{{ route('user.dashboard') }}" class="bg-primary-50 border-primary-500 text-primary-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">
-                            <i class="fas fa-tachometer-alt mr-2"></i>Dashboard
-                        </a>
-                        <a href="{{ route('user.id-card') }}" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">
-                            <i class="fas fa-id-badge mr-2"></i>Digital ID
+                            Dashboard
                         </a>
                         <a href="{{ route('user.kyc') }}" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">
-                            <i class="fas fa-id-card mr-2"></i>KYC
+                            Verification
                         </a>
-                        <a href="{{ route('user.wallet') }}" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">
-                            <i class="fas fa-wallet mr-2"></i>Wallet
+                        <a href="{{ route('user.id-card') }}" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">
+                            Digital ID
                         </a>
                     @endif
                 @else

@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Support\Str;
 use App\Models\KycDocument;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Laravel\Facades\Image;
-use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -62,10 +63,18 @@ class UserController extends Controller
         return view('user.id-card', [
             'user' => $user
         ]);
-        // if ($user->isApproved() || $user->isKycVerified()) {
-        // }
-        // return redirect()->route('user.dashboard')->with('error', 'Your account is not yet approved.');
-        
+    }
+
+    public function idCardSvG()
+    {
+        $user = auth()->user();
+        $rawID =  '';
+
+        $pdf = Pdf::loadView('id', [
+            'user' => $user
+        ]);
+        return $pdf->stream();
+
     }
 
     // API Methods

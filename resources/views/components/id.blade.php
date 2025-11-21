@@ -1,68 +1,70 @@
-<div class="card-container flex flex-col lg:flex-row gap-8 items-start justify-center">
+<div class="card-container flex flex-col lg:flex-row gap-8 items-start justify-center scrollOnMobile">
 
-    <div class="flex-1 max-w-sm w-full rounded-2xl md:rounded-3xl overflow-hidden">
-        <div class="id-card" id="idCard">
+    <div id="card-holder">
+        <div class="flex-1 max-w-sm w-full rounded-2xl md:rounded-3xl overflow-hidden" id="card">
+            <div class="id-card" id="idCard">
 
-            <!-- 1. ABSTRACT BACKGROUND SHAPES (Gold Diagonals) -->
-            <div class="diagonal-shape shape-1"></div>
-            <div class="diagonal-shape shape-2"></div>
-            <div class="diagonal-shape shape-3"></div>
-            <div class="diagonal-shape shape-4"></div>
-            <div class="diagonal-shape shape-5"></div>
+                <!-- 1. ABSTRACT BACKGROUND SHAPES (Gold Diagonals) -->
+                <div class="diagonal-shape shape-1"></div>
+                <div class="diagonal-shape shape-2"></div>
+                <div class="diagonal-shape shape-3"></div>
+                <div class="diagonal-shape shape-4"></div>
+                <div class="diagonal-shape shape-5"></div>
 
-            <!-- 2. CARD CONTENT -->
-            <div class="relative z-10 w-full h-full p-6 flex flex-col justify-top">
-                <div class="flex items-center space-x-2">
-                    <img src="{{ url('/images/logo.svg') }}" />
-                </div>
-                <div class="flex items-center justify-between mt-4">
-                    <div class="rounded-full profile-ring flex-shrink-0">
-                        <div class="rounded-full bg-gray-200 m-[-4px] p-1.5 flex items-center justify-center">
-                            @if($user->profile_photo_path)
-                                <img src="{{ Storage::url($user->profile_photo_path) }}" 
-                                     alt="Profile Photo"
-                                     class="rounded-full" style="width: 80px; height: 80px;">
-                            @else
-                                <img src="https://placehold.co/80x80?text={{ substr($user->name, 0, 1) }}" class="rounded-full" style="width: 80px; height: 80px;">
-                            @endif
+                <!-- 2. CARD CONTENT -->
+                <div class="relative z-10 w-full h-full p-6 flex flex-col justify-top">
+                    <div class="flex items-center space-x-2">
+                        <img src="{{ url('/images/logo.svg') }}" />
+                    </div>
+                    <div class="flex items-center justify-between mt-4">
+                        <div class="rounded-full profile-ring flex-shrink-0">
+                            <div class="rounded-full bg-gray-200 m-[-4px] p-1.5 flex items-center justify-center">
+                                @if($user->profile_photo_path)
+                                    <img src="{{ Storage::url($user->profile_photo_path) }}" 
+                                         alt="Profile Photo"
+                                         class="rounded-full" style="width: 80px; height: 80px;">
+                                @else
+                                    <img src="https://placehold.co/80x80?text={{ substr($user->name, 0, 1) }}" class="rounded-full" style="width: 80px; height: 80px;">
+                                @endif
+                            </div>
+                        </div>
+
+                        <!-- Name and ID -->
+                        <div class="flex-grow ml-6">
+                            <div class="text-2xl md:text-3xl font-extrabold leading-none mb-1 tracking-tight uppercase">
+                                {{ $user->name }}
+                            </div>
+                            <div class="text-sm opacity-70 font-medium">
+                                {{ $user->member_id }}
+                            </div>
                         </div>
                     </div>
-
-                    <!-- Name and ID -->
-                    <div class="flex-grow ml-6">
-                        <div class="text-2xl md:text-3xl font-extrabold leading-none mb-1 tracking-tight uppercase">
-                            {{ $user->name }}
+                    @if($user->isVIP())
+                        <div class="flex items-center justify-center">
+                            <div class="bg-gradient-to-r from-yellow-400 to-amber-500 text-amber-900 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-lg border border-amber-300">
+                                <i class="fas fa-crown mr-1"></i>VIP Member
+                            </div>
                         </div>
-                        <div class="text-sm opacity-70 font-medium">
-                            {{ $user->member_id }}
-                        </div>
-                    </div>
-                </div>
-                @if($user->isVIP())
-                    <div class="flex items-center justify-center">
-                        <div class="bg-gradient-to-r from-yellow-400 to-amber-500 text-amber-900 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-lg border border-amber-300">
-                            <i class="fas fa-crown mr-1"></i>VIP Member
-                        </div>
-                    </div>
-                @endif
-                <!-- QR Code Placeholder -->
-                <div class="z-10">
-                    @if($user->qr_code_path)
-                        <img src="{{ Storage::url($user->qr_code_path) }}" 
-                             alt="QR Code" 
-                             class="mx-auto w-20 h-20 shadow-xl rounded-lg border-4 border-white z-10 absolute bottom-5 right-5">
-                    @else
-                        <img src="https://placehold.co/80x80?text=QR%20Code\nNot%20Available" 
-                             alt="QR Code" 
-                             class="mx-auto w-20 h-20 shadow-xl rounded-lg border-4 border-white z-10 absolute bottom-5 right-5">
                     @endif
-                </div>
+                    <!-- QR Code Placeholder -->
+                    <div class="z-10">
+                        @if($user->qr_code_path)
+                            <img src="{{ Storage::url($user->qr_code_path) }}" 
+                                 alt="QR Code" 
+                                 class="mx-auto w-20 h-20 shadow-xl rounded-lg border-4 border-white z-10 absolute bottom-5 right-5">
+                        @else
+                            <img src="https://placehold.co/80x80?text=QR Code\nNot Available" 
+                                 alt="QR Code" 
+                                 class="mx-auto w-20 h-20 shadow-xl rounded-lg border-4 border-white z-10 absolute bottom-5 right-5">
+                        @endif
+                    </div>
 
-                <!-- Bottom Section: Title Bar -->
-                <div class="absolute bottom-0 left-0 w-full h-12 flex items-center justify-start" style="background-color: var(--gold); transform: translateY(12px) skewY(-3deg);">
+                    <!-- Bottom Section: Title Bar -->
+                    <div class="absolute bottom-0 left-0 w-full h-12 flex items-center justify-start" style="background-color: var(--gold); transform: translateY(12px) skewY(-3deg);">
 
+                    </div>
+                    
                 </div>
-                
             </div>
         </div>
     </div>
