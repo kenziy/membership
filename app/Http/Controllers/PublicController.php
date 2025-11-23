@@ -11,7 +11,7 @@ class PublicController extends Controller
     public function verifyMember(string $memberId)
     {
         $user = User::where('member_id', $memberId)
-            ->whereIn('status', ['approved', 'kyc_verified'])
+            ->whereIn('status', [1, 2])
             ->first();
 
         return view('public.verify', [

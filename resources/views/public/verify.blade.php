@@ -7,21 +7,21 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+<body class="min-h-screen bg-gradient-to-br from-orange-50 to-indigo-100 flex items-center justify-center p-4">
     <div class="max-w-md w-full">
         <!-- Header -->
         <div class="text-center mb-8">
             @if($user->isVIP())
             <!-- VIP Header -->
-            <div class="mx-auto h-20 w-20 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-full flex items-center justify-center mb-4 shadow-lg border-4 border-amber-300">
-                <i class="fas fa-crown text-white text-3xl"></i>
+            <div class="flex items-center justify-center mb-4">
+                <img src="{{ url('/images/logo.svg')}}" />
             </div>
             <h1 class="text-3xl font-bold text-gray-900">VIP Member Verification</h1>
             <p class="text-gray-600 mt-2">Premium membership status</p>
             @else
             <!-- Regular Header -->
-            <div class="mx-auto h-16 w-16 bg-blue-600 rounded-full flex items-center justify-center mb-4">
-                <i class="fas fa-id-card text-white text-2xl"></i>
+            <div class="flex items-center justify-center mb-4">
+                <img src="{{ url('/images/logo.svg')}}" />
             </div>
             <h1 class="text-3xl font-bold text-gray-900">Member Verification</h1>
             <p class="text-gray-600 mt-2">Verify membership status</p>
