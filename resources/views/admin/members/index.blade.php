@@ -122,7 +122,9 @@
                                         @endif
                                     </div>
                                     <div class="ml-4">
-                                        <div class="text-sm font-medium text-gray-900">{{ $member->name }}</div>
+                                        <div class="text-sm font-medium text-gray-900">
+                                            <a href="{{ route('admin.members.view', $member) }}">{{ $member->name }}</a>
+                                        </div>
                                         <div class="text-sm text-gray-500">{{ $member->email }}</div>
                                         @if($member->member_id)
                                         <div class="text-xs text-gray-400 font-mono">{{ $member->member_id }}</div>

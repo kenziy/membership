@@ -69,6 +69,25 @@ class AdminController extends Controller
         return view('admin.members.index', compact('members', 'stats', 'search', 'status', 'kycStatus', 'vipStatus'));
     }
 
+    public function viewMember(User $user) {
+        return view('admin.members.view', [
+            'user' => $user
+        ]);
+    }
+
+    public function updateMember(Request $request, User $user) {
+        $validated = $request->validate([
+            'name'      => 'required|string|max:255',
+            'address'   => 'string|max:500',
+            'email'     => 'required|email|unique:users,email,' . $user->id,
+            'status'    => 'required',
+        ]);
+
+        $user->update($validated);
+
+        return back()->with('success', 'User updated successfully.');
+    }
+
     public function toggleVip(User $user)
     {
         if ($user->isVip()) {

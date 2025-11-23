@@ -59,11 +59,11 @@ class SsoController extends Controller
             return response()->json(['error' => 'Invalid credentials'], 401);
         }
 
-        if ($user->status === 'pending') {
+        if ($user->status === 0) {
             return response()->json(['error' => 'Account pending approval'], 403);
         }
 
-        if ($user->status === 'rejected') {
+        if ($user->status === -1) {
             return response()->json(['error' => 'Account has been rejected'], 403);
         }
 
@@ -145,8 +145,7 @@ class SsoController extends Controller
         $state = session('sso_state');
 
         // Generate SSO token
-        $ssoToken = $this->generateSsoToken($user, $clientId);
-
+        $ssoToken = $user->createToken('MembershipApp')->accessToken;
         // Build redirect URL with parameters
         $redirectUrl = $this->buildRedirectUrl($returnUrl, [
             'token' => $ssoToken,

@@ -72,6 +72,7 @@ class AuthController extends Controller
 
         if ($request->expectsJson()) {
             $token = $user->createToken('MembershipApp')->accessToken;
+
             return response()->json([
                 'user' => $user,
                 'access_token' => $token,
