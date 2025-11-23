@@ -40,27 +40,27 @@
 
             <!-- Verification Result -->
             <div class="text-center">
+                @if($user->profile_photo_path)
+                    <img src="{{ Storage::url($user->profile_photo_path) }}" 
+                         alt="Profile Photo"
+                         class="mx-auto h-32 w-32 rounded-full object-cover border-4 border-aether">
+                @else
+                    <div class="mx-auto h-32 w-32 rounded-full bg-gray-100 flex items-center justify-center border-4 border-aether">
+                        <span class="text-aether font-bold text-3xl">{{ substr($user->first_name, 0, 1) }}</span>
+                    </div>
+                @endif
                 @if($exists)
                     @if($user->isVIP())
                     <!-- VIP Valid Member -->
                     <div class="mb-6">
-                        <div class="w-24 h-24 bg-gradient-to-br from-yellow-100 to-amber-200 rounded-full flex items-center justify-center mx-auto mb-4 border-4 border-amber-300 shadow-lg">
-                            <i class="fas fa-crown text-amber-600 text-4xl"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-amber-800 mb-2">VIP Member Verified</h3>
-                        <p class="text-amber-700 font-medium">This ID is verified and active.</p>
+                        <h3 class="text-2xl font-bold text-amber-800 mb-2">{{ $user->first_name .' '.$user->last_name }}</h3>
                     </div>
 
                     @else
                     <!-- Regular Valid Member -->
                     <div class="mb-6">
-                        <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <i class="fas fa-check-circle text-green-600 text-3xl"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-green-800 mb-2">Valid Member</h3>
-                        <p class="text-green-600">This ID is verified and active.</p>
+                        <h3 class="text-xl font-bold text-green-800 mb-2">{{ $user->first_name .' '.$user->last_name }}</h3>
                     </div>
-
                     @endif
                 @else
                     <!-- Invalid Member -->
