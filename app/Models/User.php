@@ -4,15 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Passport\HasApiTokens;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'email',
         'username',
         'password',
@@ -108,7 +112,8 @@ class User extends Authenticatable
     public function scopeSearch($query, $search)
     {
         return $query->where(function ($q) use ($search) {
-            $q->where('name', 'like', "%{$search}%")
+            $q->where('first_name', 'like', "%{$search}%")
+              ->orWhere('last_name', 'like', "%{$search}%")
               ->orWhere('email', 'like', "%{$search}%")
               ->orWhere('member_id', 'like', "%{$search}%");
         });
@@ -151,6 +156,29 @@ class User extends Authenticatable
         }
 
         return $query;
+    }
+
+    public function approveMember(): bool
+    {
+        $memberId = 'AETH-' . date('Ymd') . '-' . Str::padLeft($this->id, 4, '0');
+        $qrCodePath = $this->generateQrCode($memberId);
+        $this->update([
+            'status' => 1,
+            'member_id' => $memberId,
+            'qr_code_path' => $qrCodePath,
+        ]);
+        return true;
+    }
+
+    private function generateQrCode(string $memberId): string
+    {
+        $qrContent = url('/verify/' . $memberId);
+        $filename = 'qr_codes/' . $memberId . '.svg';
+        
+        $qrCode = QrCode::size(200)->generate($qrContent);
+        Storage::disk('public')->put($filename, $qrCode);
+
+        return $filename;
     }
 
     // Methods

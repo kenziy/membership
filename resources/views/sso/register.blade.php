@@ -24,12 +24,23 @@
 
                     <!-- Full Name -->
                     <div>
-                        <label for="name" class="block text-sm font-medium text-gray-700 mb-1">
-                            Full Name
+                        <label for="first_name" class="block text-sm font-medium text-gray-700 mb-1">
+                            First Name
                         </label>
                         <input 
-                            type="text" id="name" name="name" required
-                            placeholder="Enter your full name"
+                            type="text" id="first_name" name="first_name" required
+                            placeholder="Enter your first name"
+                            class="w-full py-3 px-4 rounded-lg border border-gray-300 
+                                   focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition"
+                        >
+                    </div>
+                    <div>
+                        <label for="last_name" class="block text-sm font-medium text-gray-700 mb-1">
+                            Last Name
+                        </label>
+                        <input 
+                            type="text" id="last_name" name="last_name" required
+                            placeholder="Enter your first name"
                             class="w-full py-3 px-4 rounded-lg border border-gray-300 
                                    focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition"
                         >

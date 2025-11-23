@@ -23,14 +23,14 @@
 	            />
             @else
                 <div class="h-24 w-24 rounded-full bg-gray-100 flex items-center justify-center border-4 border-aether">
-                    <span class="text-aether font-bold text-3xl">{{ substr($user->name, 0, 1) }}</span>
+                    <span class="text-aether font-bold text-3xl">{{ substr($user->first_name, 0, 1) }}</span>
                 </div>
             @endif
 
             <div>
-                <h2 class="text-xl font-semibold">{{ $user->name }}</h2>
+                <h2 class="text-xl font-semibold">{{ $user->first_name .' '. $user->last_name }}</h2>
                 <p class="text-gray-500">{{ $user->email }}</p>
-                <p class="text-sm text-gray-400 mt-1">User ID: {{ $user->id }}</p>
+                <p class="text-sm text-gray-400 mt-1">{{ $user->member_id }}</p>
             </div>
         </div>
 
@@ -38,53 +38,90 @@
         <form method="POST" action="{{ route('admin.members.update', $user->id) }}" enctype="multipart/form-data">
             @csrf
             <!-- Name -->
-            <div class="mb-4">
-                <label class="block text-sm font-medium text-gray-700">Name</label>
-                <input
-                    type="text"
-                    name="name"
-                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-                    value="{{ old('name', $user->name) }}"
-                    required
-                >
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700">First Name</label>
+                    <input
+                        type="text"
+                        name="first_name"
+                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm border p-2"
+                        value="{{ old('first_name', $user->first_name) }}"
+                        required
+                    >
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700">Last Name</label>
+                    <input
+                        type="text"
+                        name="last_name"
+                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm border p-2"
+                        value="{{ old('last_name', $user->last_name) }}"
+                        required
+                    >
+                </div>
             </div>
-
-            <!-- Email -->
-            <div class="mb-4">
-                <label class="block text-sm font-medium text-gray-700">Email</label>
-                <input
-                    type="email"
-                    name="email"
-                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-                    value="{{ old('email', $user->email) }}"
-                    required
-                >
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700">Username</label>
+                    <input
+                        type="text"
+                        name="username"
+                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm border p-2"
+                        value="{{ old('username', $user->username) }}"
+                        required
+                    >
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700">Address</label>
+                    <input
+                        type="text"
+                        name="address"
+                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm border p-2"
+                        value="{{ old('address', $user->address) }}"
+                        required
+                    >
+                </div>
             </div>
-
-            <!-- Status -->
-            <div class="mb-4">
-                <label class="block text-sm font-medium text-gray-700">Status</label>
-                <select name="status" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
-                    <option value="0" {{ $user->status == 0 ? 'selected' : '' }}>Pending</option>
-                    <option value="1" {{ $user->status == 1 ? 'selected' : '' }}>Approved</option>
-                    <option value="2" {{ $user->status == 2 ? 'selected' : '' }}>Fully Verified</option>
-                    <option value="-1" {{ $user->status == -1 ? 'selected' : '' }}>Rejected</option>
-                </select>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700">Email</label>
+                    <input
+                        type="email"
+                        name="email"
+                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm p-2 border"
+                        value="{{ old('email', $user->email) }}"
+                        required
+                    >
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700">Phone Number</label>
+                    <input
+                        type="text"
+                        name="phone_number"
+                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm p-2 border"
+                        value="{{ old('phone_number', $user->phone_number) }}"
+                        required
+                    >
+                </div>
             </div>
-
-            <!-- Upload Photo -->
-            <div class="mb-6">
-                <label class="block text-sm font-medium text-gray-700">Profile Photo</label>
-
-                <input
-                    type="file"
-                    name="image"
-                    accept="image/*"
-                    class="mt-1 block w-full"
-                    onchange="previewImage(event)"
-                >
-
-                <p class="text-xs text-gray-400 mt-1">Recommended: Square 400x400px</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700">Status</label>
+                    <select name="status" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm p-2 border">
+                        <option value="0" {{ $user->status == 0 ? 'selected' : '' }}>Pending</option>
+                        <option value="1" {{ $user->status == 1 ? 'selected' : '' }}>Approved</option>
+                        <option value="2" {{ $user->status == 2 ? 'selected' : '' }}>Fully Verified</option>
+                        <option value="-1" {{ $user->status == -1 ? 'selected' : '' }}>Rejected</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700">VIP</label>
+                    <select name="is_vip" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm p-2 border">
+                        <option value="0" {{ $user->is_vip == 0 ? 'selected' : '' }}>No</option>
+                        <option value="1" {{ $user->is_vip == 1 ? 'selected' : '' }}>Yes</option>
+                    </select>
+                </div>
+                
             </div>
 
             <!-- Buttons -->
@@ -95,7 +132,7 @@
 
                 <button
                     type="submit"
-                    class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                    class="px-6 py-2 bg-orange-600 text-white rounded-md hover:bg-orange-700"
                 >
                     Update User
                 </button>
@@ -104,6 +141,9 @@
 
     </div>
 
+    <div class="mt-5">
+        <x-id :user="$user" />
+    </div>
 </div>
 
 <script>

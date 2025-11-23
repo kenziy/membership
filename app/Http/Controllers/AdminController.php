@@ -9,7 +9,6 @@ use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Str;
 
 class AdminController extends Controller
@@ -77,13 +76,21 @@ class AdminController extends Controller
 
     public function updateMember(Request $request, User $user) {
         $validated = $request->validate([
-            'name'      => 'required|string|max:255',
-            'address'   => 'string|max:500',
-            'email'     => 'required|email|unique:users,email,' . $user->id,
-            'status'    => 'required',
+            'first_name'        => 'required|string|max:255',
+            'last_name'         => 'required|string|max:255',
+            'address'           => 'string|max:500',
+            'phone_number'      => 'string|max:500',
+            'email'             => 'required|email|unique:users,email,' . $user->id,
+            'status'            => 'required',
         ]);
 
         $user->update($validated);
+
+        if ($request->input('is_vip')) {
+            $user->markAsVip();
+        } else {
+            $user->removeVip();
+        }
 
         return back()->with('success', 'User updated successfully.');
     }
@@ -127,22 +134,11 @@ class AdminController extends Controller
     }
 
     // API Methods for Web Forms
-    public function approveMember(Request $request, User $user)
+    public function approveMember(User $user)
     {
 
         // Generate member ID
-        $memberId = 'AETH-' . date('Ymd') . '-' . Str::padLeft($user->id, 4, '0');
-        
-        // Generate QR code
-        $qrCodePath = $this->generateQrCode($memberId);
-        
-        // Update user
-        $user->update([
-            'status' => 1,
-            'member_id' => $memberId,
-            'qr_code_path' => $qrCodePath,
-        ]);
-
+        $user->approveMember();
         // Create wallet
         Wallet::create(['user_id' => $user->id, 'balance' => 0]);
 
@@ -200,16 +196,5 @@ class AdminController extends Controller
         );
 
         return back()->with('success', 'Credit added successfully. New balance: $' . number_format($user->wallet->fresh()->balance, 2));
-    }
-
-    private function generateQrCode(string $memberId): string
-    {
-        $qrContent = url('/verify/' . $memberId);
-        $filename = 'qr_codes/' . $memberId . '.svg';
-        
-        $qrCode = QrCode::size(200)->generate($qrContent);
-        Storage::disk('public')->put($filename, $qrCode);
-
-        return $filename;
     }
 }

@@ -27,7 +27,7 @@
                              class="mx-auto h-32 w-32 rounded-full object-cover border-4 border-aether">
                     @else
                         <div class="mx-auto h-32 w-32 rounded-full bg-gray-100 flex items-center justify-center border-4 border-aether">
-                            <span class="text-aether font-bold text-3xl">{{ substr($user->name, 0, 1) }}</span>
+                            <span class="text-aether font-bold text-3xl">{{ substr($user->first_name, 0, 1) }}</span>
                         </div>
                     @endif
 
@@ -86,8 +86,14 @@
 
                         <!-- Full Name -->
                         <div>
-                            <label class="text-sm font-medium text-gray-700">Full Name</label>
-                            <input type="text" name="name" value="{{ $user->name }}"
+                            <label class="text-sm font-medium text-gray-700">First Name</label>
+                            <input type="text" name="name" value="{{ $user->first_name }}"
+                                   class="mt-1 block w-full rounded-lg border-gray-300 focus:ring-aether border p-2" required>
+                        </div>
+
+                        <div>
+                            <label class="text-sm font-medium text-gray-700">Last Name</label>
+                            <input type="text" name="name" value="{{ $user->last_name }}"
                                    class="mt-1 block w-full rounded-lg border-gray-300 focus:ring-aether border p-2" required>
                         </div>
 
@@ -95,6 +101,12 @@
                             <label class="text-sm font-medium text-gray-700">Username</label>
                             <input type="text" name="username" value="{{ $user->username }}"
                                    class="mt-1 block w-full rounded-lg border-gray-300 focus:ring-aether border p-2" required>
+                        </div>
+
+                        <div>
+                            <label class="text-sm font-medium text-gray-700">Address</label>
+                            <input type="text" name="address" value="{{ $user->address }}"
+                                   class="mt-1 block w-full rounded-lg border-gray-300 focus:ring-aether border p-2" />
                         </div>
                     </div>
 
@@ -112,11 +124,6 @@
                                    class="mt-1 block w-full rounded-lg border-gray-300 border p-2" />
                         </div>
 
-                    </div>
-                    <div>
-                        <label class="text-sm font-medium text-gray-700">Address</label>
-                        <input type="text" name="address" value="{{ $user->address }}"
-                               class="mt-1 block w-full rounded-lg border-gray-300 focus:ring-aether border p-2" />
                     </div>
 
                     <!-- Save Button -->

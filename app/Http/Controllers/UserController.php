@@ -81,7 +81,7 @@ class UserController extends Controller
     public function profileApi(Request $request): JsonResponse
     {
         return response()->json([
-            'user' => $request->user()->load(['wallet', 'kycDocuments']),
+            'user' => $request->user()->load(['kycDocuments']),
         ]);
     }
 
@@ -93,7 +93,7 @@ class UserController extends Controller
         $validated = $request->validate([
             'name'          => 'required|string|max:255',
             'username'      => 'required|unique:users,username,' . $user->id,
-            'email'         => 'required|email |unique:users,email,' . $user->id,
+            'email'         => 'required|email|unique:users,email,' . $user->id,
             'address'       => 'max:500',
             'phone_number'  => 'max:20',
         ]);

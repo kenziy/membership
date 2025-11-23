@@ -31,9 +31,7 @@
                                 <a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.*') ? 'border-primary-500 text-gray-900' : 'border-transparent text-gray-500' }} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
                                     Dashboard
                                 </a>
-                                <a href="{{ route('user.id-card') }}" class="{{ request()->routeIs('user.id-card') ? 'border-primary-500 text-gray-900' : 'border-transparent text-gray-500' }} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                                    Digital ID
-                                </a>
+                                
                                 <a href="{{ route('admin.members.index') }}" class="{{ request()->routeIs('admin.members.*') ? 'border-primary-500 text-gray-900' : 'border-transparent text-gray-500' }} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
                                     Members
                                 </a>
@@ -69,7 +67,7 @@
                             @if(auth()->user()->profile_photo_path)
                                 <img src="{{ Storage::url(auth()->user()->profile_photo_path) }}" class="-8 w-8 rounded-full bg-aether flex items-center justify-center" />
                             @else
-                                <div class="h-8 w-8 rounded-full bg-aether flex items-center justify-center text-white font-semibold">{{ substr(auth()->user()->name, 0, 1) }}</div>
+                                <div class="h-8 w-8 rounded-full bg-aether flex items-center justify-center text-white font-semibold">{{ substr(auth()->user()->first_name, 0, 1) }}</div>
                             @endif
 
                         </button>
@@ -77,7 +75,7 @@
                         <div x-show="userMenuOpen" @click.away="userMenuOpen = false" 
                              class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 z-50">
                             <div class="px-4 py-2 border-b">
-                                <p class="text-sm font-medium text-gray-900">{{ auth()->user()->name }}</p>
+                                <p class="text-sm font-medium text-gray-900">{{ auth()->user()->first_name }}</p>
                                 <p class="text-sm text-gray-500">{{ auth()->user()->email }}</p>
                                 @if(auth()->user()->member_id)
                                 <p class="text-xs text-gray-400">{{ auth()->user()->member_id }}</p>
@@ -110,7 +108,7 @@
                     @auth
                         <button @click="userMenuOpenMobile = !userMenuOpenMobile">
                             <div class="h-8 w-8 rounded-full bg-aether flex items-center justify-center text-white font-semibold">
-                                {{ substr(auth()->user()->name, 0, 1) }}
+                                {{ substr(auth()->user()->first_name, 0, 1) }}
                             </div>
                         </button>
                     @endauth
@@ -120,7 +118,7 @@
                     <div x-show="userMenuOpenMobile" @click.away="userMenuOpenMobile = false" 
                          class="origin-top-right absolute right-0 mt-[60px] w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 z-50">
                         <div class="px-4 py-2 border-b">
-                            <p class="text-sm font-medium text-gray-900">{{ auth()->user()->name }}</p>
+                            <p class="text-sm font-medium text-gray-900">{{ auth()->user()->first_name }}</p>
                             <p class="text-sm text-gray-500">{{ auth()->user()->email }}</p>
                             @if(auth()->user()->member_id)
                             <p class="text-xs text-gray-400">{{ auth()->user()->member_id }}</p>

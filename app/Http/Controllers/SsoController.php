@@ -90,6 +90,10 @@ class SsoController extends Controller
             'sso_state' => Str::random(40),
         ]);
 
+        if (auth()->check()) {
+            return $this->generateSsoRedirect(auth()->user());
+        }
+
         return view('sso.register', [
             'client_id' => $request->client_id,
             'return_url' => $request->return_url,
@@ -102,10 +106,11 @@ class SsoController extends Controller
     public function processRegister(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'username' => 'required|string|max:255|unique:users',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
+            'first_name'    => 'required|string|max:255',
+            'last_name'     => 'required|string|max:255',
+            'username'      => 'required|string|max:255|unique:users',
+            'email'         => 'required|string|email|max:255|unique:users',
+            'password'      => 'required|string|min:8|confirmed',
             'address'       => 'max:500',
             'phone_number'  => 'max:20',
         ]);
@@ -119,7 +124,8 @@ class SsoController extends Controller
 
         try {
             $user = User::create([
-                'name'          => $request->name,
+                'first_name'    => $request->first_name,
+                'last_name'     => $request->last_name,
                 'username'      => $request->username,
                 'email'         => $request->email,
                 'address'       => $request->address,
@@ -129,6 +135,10 @@ class SsoController extends Controller
             ]);
 
             DB::commit();
+
+            if (env('DEFAULT_MEMBER_STATUS')) {
+                $user->approveMember();
+            }
 
             // Auto-login the user after registration
             auth()->login($user);
@@ -181,34 +191,6 @@ class SsoController extends Controller
         return $baseUrl . $separator . http_build_query($params);
     }
 
-    /**
-     * Parse and verify SSO token
-     */
-    private function parseAndVerifyToken(string $token): ?array
-    {
-        $parts = explode('.', $token);
-
-        if (count($parts) !== 2) {
-            return null;
-        }
-
-        list($encodedPayload, $signature) = $parts;
-
-        // Verify signature
-        $expectedSignature = hash_hmac('sha256', $encodedPayload, config('app.key'));
-
-        if (!hash_equals($expectedSignature, $signature)) {
-            return null;
-        }
-
-        $payload = json_decode(base64_decode($encodedPayload), true);
-
-        if (!is_array($payload)) {
-            return null;
-        }
-
-        return $payload;
-    }
 
     /**
      * Get SSO configuration for clients

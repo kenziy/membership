@@ -24,7 +24,7 @@
                                          alt="Profile Photo"
                                          class="rounded-full" style="width: 80px; height: 80px;">
                                 @else
-                                    <img src="https://placehold.co/80x80?text={{ substr($user->name, 0, 1) }}" class="rounded-full" style="width: 80px; height: 80px;">
+                                    <img src="https://placehold.co/80x80?text={{ substr($user->first_name, 0, 1) }}" class="rounded-full" style="width: 80px; height: 80px;">
                                 @endif
                             </div>
                         </div>
@@ -32,7 +32,7 @@
                         <!-- Name and ID -->
                         <div class="flex-grow ml-6">
                             <div class="text-2xl md:text-3xl font-extrabold leading-none mb-1 tracking-tight uppercase">
-                                {{ $user->name }}
+                                {{ $user->first_name . ' ' . $user->last_name }}
                             </div>
                             <div class="text-sm opacity-70 font-medium">
                                 {{ $user->member_id }}
@@ -84,10 +84,6 @@
 
             <!-- Quick Actions -->
             <div class="space-y-3">
-                <a href="{{ route('user.dashboard') }}" 
-                   class="flex items-center justify-center px-4 py-2.5 border border-gray-200 rounded-xl text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition">
-                    <i class="fas fa-arrow-left mr-2"></i> Back to Dashboard
-                </a>
                 <p class="text-center text-xs text-gray-500 pt-3">
                     For verification issues, please <a href="#" class="text-blue-600 hover:text-blue-700 hover:underline font-medium">Contact Support</a>.
                 </p>

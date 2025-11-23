@@ -91,7 +91,8 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'name'          => 'required|string|max:255',
+            'first_name'    => 'required|string|max:255',
+            'last_name'     => 'required|string|max:255',
             'username'      => 'required|string|max:255|unique:users',
             'email'         => 'required|string|email|max:255|unique:users',
             'phone_number'  => 'required|max:20',
@@ -99,7 +100,8 @@ class AuthController extends Controller
         ]);
 
         $userData = [
-            'name'          => $request->name,
+            'first_name'    => $request->first_name,
+            'last_name'     => $request->last_name,
             'username'      => $request->username,
             'email'         => $request->email,
             'address'       => $request->input('address'),
@@ -117,6 +119,10 @@ class AuthController extends Controller
                 'access_token' => $token,
                 'message' => 'Registration successful. Waiting for admin approval.'
             ], 201);
+        }
+
+        if (env('DEFAULT_MEMBER_STATUS')) {
+            $user->approveMember($user);
         }
 
         // Auto-login for web users

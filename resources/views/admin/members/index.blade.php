@@ -117,13 +117,13 @@
                                             <img class="h-10 w-10 rounded-full object-cover" src="{{ Storage::url($member->profile_photo_path) }}" alt="">
                                         @else
                                             <div class="h-10 w-10 rounded-full bg-primary-500 flex items-center justify-center text-white font-semibold">
-                                                {{ substr($member->name, 0, 1) }}
+                                                {{ substr($member->first_name, 0, 1) }}
                                             </div>
                                         @endif
                                     </div>
                                     <div class="ml-4">
                                         <div class="text-sm font-medium text-gray-900">
-                                            <a href="{{ route('admin.members.view', $member) }}">{{ $member->name }}</a>
+                                            <a href="{{ route('admin.members.view', $member) }}">{{ $member->first_name .' '. $member->last_name }}</a>
                                         </div>
                                         <div class="text-sm text-gray-500">{{ $member->email }}</div>
                                         @if($member->member_id)
