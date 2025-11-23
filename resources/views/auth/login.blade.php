@@ -23,10 +23,10 @@
             <div class="space-y-4">
                 <!-- Email -->
                 <div>
-                    <label for="email" class="sr-only">Email Address</label>
-                    <input id="email" name="email" type="email" autocomplete="email" required
+                    <label for="username" class="sr-only">Username</label>
+                    <input id="username" name="username" type="text" autocomplete="username" required
                            class="block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm placeholder-gray-500 focus:ring-aether focus:border-aether sm:text-sm"
-                           placeholder="Email address" value="{{ old('email') }}">
+                           placeholder="Username" value="{{ old('username') }}">
                 </div>
 
                 <!-- Password -->

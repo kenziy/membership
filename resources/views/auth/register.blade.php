@@ -29,25 +29,34 @@
                         <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
                         <input 
                             id="name" name="name" type="text" required
-                            placeholder="John Doe"
+                            placeholder="Enter your full name"
                             value="{{ old('name') }}"
                             class="w-full py-3 px-4 rounded-lg border border-gray-300 
                                    focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition"
                         >
                     </div>
 
-                    <!-- Email -->
                     <div>
-                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                        <label for="address" class="block text-sm font-medium text-gray-700 mb-1">Address</label>
                         <input 
-                            id="email" name="email" type="email" required
-                            placeholder="john@example.com"
-                            value="{{ old('email') }}"
+                            id="address" name="address" type="text" required
+                            placeholder="Enter your full address"
+                            value="{{ old('address') }}"
                             class="w-full py-3 px-4 rounded-lg border border-gray-300 
                                    focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition"
                         >
                     </div>
 
+                    <div>
+                        <label for="username" class="block text-sm font-medium text-gray-700 mb-1">Username</label>
+                        <input 
+                            id="username" name="username" type="text" required
+                            placeholder="Enter your username"
+                            value="{{ old('username') }}"
+                            class="w-full py-3 px-4 rounded-lg border border-gray-300 
+                                   focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition"
+                        >
+                    </div>
                     <!-- Password -->
                     <div>
                         <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
@@ -69,6 +78,32 @@
                                    focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition"
                         >
                     </div>
+
+                    <!-- Email -->
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                        <input 
+                            id="email" name="email" type="email" required
+                            placeholder="Enter your email"
+                            value="{{ old('email') }}"
+                            class="w-full py-3 px-4 rounded-lg border border-gray-300 
+                                   focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition"
+                        >
+                    </div>
+
+                    <div>
+                        <label for="phone_number" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                        <input 
+                            id="phone_number" name="phone_number" type="text" required
+                            placeholder="Enter your phone number"
+                            value="{{ old('phone_number') }}"
+                            class="w-full py-3 px-4 rounded-lg border border-gray-300 
+                                   focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition"
+                        >
+                    </div>
+
+
+                    
 
                 </div>
 

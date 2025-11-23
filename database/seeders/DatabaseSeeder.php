@@ -16,11 +16,13 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@admin.com',
             'password' => Hash::make('admin123'),
             'role' => 'admin',
+            'username' => 'admin',
+            'phone_number' => '09123456785',
             'status' => 2,
             'member_id' => 'MBR-ADMIN-001',
         ]);
 
         // Create sample users
-        User::factory(10)->create();
+        // User::factory(2)->create();
     }
 }

@@ -20,13 +20,13 @@
 
                     <!-- Email -->
                     <div>
-                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                        <label for="username" class="block text-sm font-medium text-gray-700 mb-1">Username</label>
                         <input 
-                            type="email"
-                            id="email"
-                            name="email"
+                            type="text"
+                            id="username"
+                            name="username"
                             required
-                            placeholder="Enter your email"
+                            placeholder="Enter your username"
                             class="w-full py-3 px-4 rounded-lg border border-gray-300 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition"
                         >
                     </div>

@@ -44,7 +44,7 @@ class SsoController extends Controller
     public function processLogin(Request $request)
     {
         $request->validate([
-            'email' => 'required|email',
+            'username' => 'required',
             'password' => 'required|string',
         ]);
 
@@ -53,7 +53,7 @@ class SsoController extends Controller
             return response()->json(['error' => 'Invalid SSO session'], 400);
         }
 
-        $user = User::where('email', $request->email)->first();
+        $user = User::where('username', $request->username)->first();
 
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json(['error' => 'Invalid credentials'], 401);
@@ -93,7 +93,7 @@ class SsoController extends Controller
         return view('sso.register', [
             'client_id' => $request->client_id,
             'return_url' => $request->return_url,
-        ]);
+        ]);  
     }
 
     /**
@@ -103,8 +103,11 @@ class SsoController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'username' => 'required|string|max:255|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
+            'address'       => 'max:500',
+            'phone_number'  => 'max:20',
         ]);
 
         // Check if SSO session exists
@@ -116,10 +119,13 @@ class SsoController extends Controller
 
         try {
             $user = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'status' => 'pending',
+                'name'          => $request->name,
+                'username'      => $request->username,
+                'email'         => $request->email,
+                'address'       => $request->address,
+                'phone_number'  => $request->phone_number,
+                'password'      => Hash::make($request->password),
+                'status'        => env('DEFAULT_MEMBER_STATUS'),
             ]);
 
             DB::commit();
@@ -150,8 +156,6 @@ class SsoController extends Controller
         $redirectUrl = $this->buildRedirectUrl($returnUrl, [
             'token' => $ssoToken,
             'state' => $state,
-            'user_id' => $user->id,
-            'member_id' => $user->member_id,
             'status' => 'success',
         ]);
 
@@ -169,81 +173,12 @@ class SsoController extends Controller
     }
 
     /**
-     * Generate SSO Token
-     */
-    private function generateSsoToken(User $user, string $clientId): string
-    {
-        $payload = [
-            'user_id' => $user->id,
-            'email' => $user->email,
-            'name' => $user->name,
-            'member_id' => $user->member_id,
-            'status' => $user->status,
-            'is_vip' => $user->is_vip,
-            'client_id' => $clientId,
-            'timestamp' => now()->timestamp,
-            'expires' => now()->addHours(1)->timestamp,
-        ];
-
-        $encodedPayload = base64_encode(json_encode($payload));
-        $signature = hash_hmac('sha256', $encodedPayload, config('app.key'));
-
-        return $encodedPayload . '.' . $signature;
-    }
-
-    /**
      * Build Redirect URL with parameters
      */
     private function buildRedirectUrl(string $baseUrl, array $params): string
     {
         $separator = parse_url($baseUrl, PHP_URL_QUERY) ? '&' : '?';
         return $baseUrl . $separator . http_build_query($params);
-    }
-
-    /**
-     * Verify SSO Token (for client applications)
-     */
-    public function verifyToken(Request $request)
-    {
-        $request->validate([
-            'token' => 'required|string',
-        ]);
-
-        try {
-            $tokenData = $this->parseAndVerifyToken($request->token);
-
-            if (!$tokenData) {
-                return response()->json(['error' => 'Invalid token'], 401);
-            }
-
-            // Check if token is expired
-            if (now()->timestamp > $tokenData['expires']) {
-                return response()->json(['error' => 'Token expired'], 401);
-            }
-
-            // Get user data
-            $user = User::find($tokenData['user_id']);
-
-            if (!$user) {
-                return response()->json(['error' => 'User not found'], 404);
-            }
-
-            return response()->json([
-                'valid' => true,
-                'user' => [
-                    'id' => $user->id,
-                    'name' => $user->name,
-                    'email' => $user->email,
-                    'member_id' => $user->member_id,
-                    'status' => $user->status,
-                    'is_vip' => $user->is_vip,
-                    'profile_photo_url' => $user->profile_photo_path ? Storage::url($user->profile_photo_path) : null,
-                ],
-            ]);
-
-        } catch (\Exception $e) {
-            return response()->json(['error' => 'Token verification failed'], 500);
-        }
     }
 
     /**

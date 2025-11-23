@@ -47,6 +47,5 @@ Route::middleware(['auth:api', 'admin'])->prefix('admin')->group(function () {
 });
 
 Route::prefix('sso')->group(function () {
-    Route::post('/verify', [SsoController::class, 'verifyToken'])->name('api.sso.verify');
     Route::get('/config', [SsoController::class, 'configuration'])->name('api.sso.config');
 });

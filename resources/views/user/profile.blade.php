@@ -91,10 +91,24 @@
                                    class="mt-1 block w-full rounded-lg border-gray-300 focus:ring-aether border p-2" required>
                         </div>
 
+                        <div>
+                            <label class="text-sm font-medium text-gray-700">Username</label>
+                            <input type="text" name="username" value="{{ $user->username }}"
+                                   class="mt-1 block w-full rounded-lg border-gray-300 focus:ring-aether border p-2" required>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Email -->
                         <div>
                             <label class="text-sm font-medium text-gray-700">Email Address</label>
                             <input type="email" name="email" value="{{ $user->email }}"
+                                   class="mt-1 block w-full rounded-lg border-gray-300 border p-2" />
+                        </div>
+
+                        <div>
+                            <label class="text-sm font-medium text-gray-700">Phone number</label>
+                            <input type="text" name="phone_number" value="{{ $user->phone_number }}"
                                    class="mt-1 block w-full rounded-lg border-gray-300 border p-2" />
                         </div>
 

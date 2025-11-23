@@ -91,14 +91,15 @@ class UserController extends Controller
 
         // Validate inputs
         $validated = $request->validate([
-            'name'  => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $user->id,
-            'address'  => 'max:500',
+            'name'          => 'required|string|max:255',
+            'username'      => 'required|unique:users,username,' . $user->id,
+            'email'         => 'required|email |unique:users,email,' . $user->id,
+            'address'       => 'max:500',
+            'phone_number'  => 'max:20',
         ]);
 
         // Update user
         $user->update($validated);
-
         return back()->with('success', 'Profile updated successfully.');
     }
 

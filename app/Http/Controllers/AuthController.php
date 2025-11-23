@@ -40,11 +40,11 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email' => 'required|string|email',
+            'username' => 'required|string',
             'password' => 'required|string',
         ]);
 
-        $user = User::where('email', $request->email)->first();
+        $user = User::where('username', $request->username)->first();
 
         if (!$user || !Hash::check($request->password, $user->password)) {
             if ($request->expectsJson()) {
@@ -91,24 +91,22 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
-            'profile_photo' => 'nullable|image|max:2048',
+            'name'          => 'required|string|max:255',
+            'username'      => 'required|string|max:255|unique:users',
+            'email'         => 'required|string|email|max:255|unique:users',
+            'phone_number'  => 'required|max:20',
+            'password'      => 'required|string|min:8|confirmed'
         ]);
 
         $userData = [
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'status' => 0,
+            'name'          => $request->name,
+            'username'      => $request->username,
+            'email'         => $request->email,
+            'address'       => $request->input('address'),
+            'phone_number'  => $request->phone_number,
+            'password'      => Hash::make($request->password),
+            'status'        => env('DEFAULT_MEMBER_STATUS'),
         ];
-
-        // Handle profile photo upload
-        if ($request->hasFile('profile_photo')) {
-            $photoPath = $this->storeProfilePhoto($request->file('profile_photo'));
-            $userData['profile_photo_path'] = $photoPath;
-        }
 
         $user = User::create($userData);
 
