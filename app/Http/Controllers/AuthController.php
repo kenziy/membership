@@ -106,7 +106,7 @@ class AuthController extends Controller
             'email'         => $request->email,
             'phone_number'  => $request->phone_number,
             'password'      => Hash::make($request->password),
-            'status'        => env('DEFAULT_MEMBER_STATUS'),
+            'status'        => env('DEFAULT_MEMBER_STATUS', 1),
 
             'location_region_code'       => $request->input('location_region_code'),
             'location_province_code'     => $request->input('location_province_code'),
@@ -126,7 +126,7 @@ class AuthController extends Controller
             ], 201);
         }
 
-        if (env('DEFAULT_MEMBER_STATUS')) {
+        if (env('DEFAULT_MEMBER_STATUS', 1)) {
             $user->approveMember($user);
         }
 

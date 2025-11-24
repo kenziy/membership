@@ -135,7 +135,7 @@ class SsoController extends Controller
                 'email'         => $request->email,
                 'phone_number'  => $request->phone_number,
                 'password'      => Hash::make($request->password),
-                'status'        => env('DEFAULT_MEMBER_STATUS'),
+                'status'        => env('DEFAULT_MEMBER_STATUS', 1),
 
                 'location_region_code'       => $request->location_region_code,
                 'location_province_code'     => $request->location_province_code,
@@ -146,7 +146,7 @@ class SsoController extends Controller
 
             DB::commit();
 
-            if (env('DEFAULT_MEMBER_STATUS')) {
+            if (env('DEFAULT_MEMBER_STATUS', 1)) {
                 $user->approveMember();
             }
 
