@@ -126,6 +126,14 @@
                 
             </div>
 
+            <x-address
+                :regionCode="$user->location_region_code"
+                :provinceCode="$user->location_province_code"
+                :cityCode="$user->location_city_code"
+                :barangayCode="$user->location_barangay_code"
+                :streetValue="$user->location_barangay_street"
+            />
+
             <!-- Buttons -->
             <div class="flex justify-between mt-6">
                 <a href="{{ route('admin.members.index') }}" class="px-4 py-2 bg-gray-200 rounded-md">

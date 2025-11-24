@@ -3,7 +3,6 @@
 @section('title', 'My Profile - Membership App')
 
 @section('content')
-    
     <div class="flex items-center justify-center p-6" x-data="{ isVIP: {{ $user->isVip() }} }">
         <div class="max-w-xl w-full">
             <div class="bg-white shadow-xl rounded-3xl overflow-hidden 
@@ -44,7 +43,7 @@
                     <div class="mt-6">
                         <h2 class="text-sm font-semibold text-gray-600">Address</h2>
                         <p class="text-gray-800 text-base mt-1">
-                            {{ $user->address }}
+                            {{ $address['region'] .', '. $address['province'] .', '. $address['city'] . ', ' . $address['barangay'] }}
                         </p>
                     </div>
 

@@ -14,23 +14,29 @@ class PublicController extends Controller
             ->whereIn('status', [1, 2])
             ->first();
 
+        if (is_null($user)) {
+            abort(404);
+        }
+
         return view('public.verify', [
-            'exists' => $user !== null,
-            'memberId' => $memberId,
-            'user' => $user // Only for internal use, not displayed
+            'exists'    => $user !== null,
+            'memberId'  => $memberId,
+            'address'   => $user->getAddress(),
+            'user'      => $user
         ]);
     }
 
     public function verifyMemberApi(string $memberId): JsonResponse
     {
         $user = User::where('member_id', $memberId)
-            ->whereIn('status', ['approved', 'kyc_verified'])
+            ->whereIn('status', [1, 2])
             ->first();
 
         return response()->json([
-            'exists' => $user !== null,
+            'exists'    => $user !== null,
             'member_id' => $memberId,
-            'status' => $user ? 'valid' : 'invalid'
+            'address'   => $user->getAddress(),
+            'status'    => $user ? 'valid' : 'invalid'
         ]);
     }
 }

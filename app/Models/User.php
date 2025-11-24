@@ -270,4 +270,29 @@ class User extends Authenticatable
             default => 'gray'
         };
     }
+
+    public function getAddress(): array
+    {
+        $path = public_path('location');
+
+        // Load JSON files
+        $regions   = json_decode(file_get_contents($path . '/region.json'), true);
+        $provinces = json_decode(file_get_contents($path . '/province.json'), true);
+        $cities    = json_decode(file_get_contents($path . '/city.json'), true);
+        $barangays = json_decode(file_get_contents($path . '/barangay.json'), true);
+
+        // Match data using saved codes
+        $region    = collect($regions)->firstWhere('region_code', $this->location_region_code);
+        $province  = collect($provinces)->firstWhere('province_code', $this->location_province_code);
+        $city      = collect($cities)->firstWhere('city_code', $this->location_city_code);
+        $barangay  = collect($barangays)->firstWhere('brgy_code', $this->location_barangay_code);
+
+        return [
+            'region'   => $region['region_name'] ?? null,
+            'province' => $province['province_name'] ?? null,
+            'city'     => $city['city_name'] ?? null,
+            'barangay' => $barangay['brgy_name'] ?? null,
+            'street'   => $this->location_barangay_street ?? null,
+        ];
+    }
 }
