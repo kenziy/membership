@@ -20,7 +20,7 @@
                 <div class="flex">
                     <div class="flex-shrink-0 flex items-center">
                         <a href="{{ url('/') }}">
-                            <img src="{{ url('/images/logo.svg')}}" />
+                            <img src="{{ url('/images/logo.png')}}" width="50" />
                         </a>
                     </div>
                     
@@ -182,13 +182,10 @@
 
             <!-- Logo + Description -->
             <div class="col-span-1 md:col-span-2 space-y-4">
-                <img src="https://www.aetherpay.ai/images/logo.svg" 
-                     alt="AetherPay Logo"
-                     class="w-40">
+                <img src="{{ url('/images/logo.png')}}" width="50" /> Bitscalp Network
 
                 <p class="text-sm leading-relaxed">
-                    A next-generation digital payment solution and decentralized banking system 
-                    built in the Philippines, powered by blockchain technology.
+                    Join us in shaping the future. Invest in Bitscalp today and be part of our journey towards innovation, growth, and success.
                 </p>
             </div>
 
@@ -213,7 +210,7 @@
 
         <!-- Bottom Bar -->
         <div class="w-full border-t py-4 text-center text-xs text-gray-600">
-            &copy; {{ date('Y') }} AetherPay. All rights reserved.
+            &copy; {{ date('Y') }} Bitscalp. All rights reserved.
         </div>
     </footer>
 

@@ -160,7 +160,7 @@ class User extends Authenticatable
 
     public function approveMember(): bool
     {
-        $memberId = 'AETH-' . date('Ymd') . '-' . Str::padLeft($this->id, 4, '0');
+        $memberId = 'BSP-' . date('Ymd') . '-' . Str::padLeft($this->id, 4, '0');
         $qrCodePath = $this->generateQrCode($memberId);
         $this->update([
             'status' => 1,
