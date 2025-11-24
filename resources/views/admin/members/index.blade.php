@@ -116,7 +116,7 @@
                                         @if($member->profile_photo_path)
                                             <img class="h-10 w-10 rounded-full object-cover" src="{{ Storage::url($member->profile_photo_path) }}" alt="">
                                         @else
-                                            <div class="h-10 w-10 rounded-full bg-primary-500 flex items-center justify-center text-white font-semibold">
+                                            <div class="h-10 w-10 rounded-full bg-gray-500 flex items-center justify-center text-white font-semibold">
                                                 {{ substr($member->first_name, 0, 1) }}
                                             </div>
                                         @endif

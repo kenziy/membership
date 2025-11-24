@@ -30,7 +30,9 @@
             <div>
                 <h2 class="text-xl font-semibold">{{ $user->first_name .' '. $user->last_name }}</h2>
                 <p class="text-gray-500">{{ $user->email }}</p>
-                <p class="text-sm text-gray-400 mt-1">{{ $user->member_id }}</p>
+                <p class="text-sm text-gray-400 mt-1">
+                    <a href="{{ url('/verify/' . $user->member_id) }}" target="_blank">{{ $user->member_id }}</a>
+                </p>
             </div>
         </div>
 

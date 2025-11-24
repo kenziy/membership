@@ -23,13 +23,18 @@ class User extends Authenticatable
         'status',
         'phone_number',
         'invited_by',
-        'address',
         'member_id',
         'profile_photo_path',
         'qr_code_path',
         'role',
         'is_vip',
         'vip_since',
+
+        'location_region_code',
+        'location_province_code',
+        'location_city_code',
+        'location_barangay_code',
+        'location_barangay_street',
     ];
 
     protected $hidden = [

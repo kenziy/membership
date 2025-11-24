@@ -20,11 +20,17 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('invited_by')->nullable();
-            $table->string('address')->nullable();
             $table->integer('status')->default(0);
             $table->string('member_id')->unique()->nullable();
             $table->string('profile_photo_path')->nullable();
             $table->string('qr_code_path')->nullable();
+
+            $table->string('location_region_code')->nullable();
+            $table->string('location_province_code')->nullable();
+            $table->string('location_city_code')->nullable();
+            $table->string('location_barangay_code')->nullable();
+            $table->string('location_barangay_street')->nullable();
+            
             $table->enum('role', ['user', 'admin', 'super_admin'])->default('user');
             $table->rememberToken();
             $table->timestamps();

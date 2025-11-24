@@ -111,8 +111,13 @@ class SsoController extends Controller
             'username'      => 'required|string|max:255|unique:users',
             'email'         => 'required|string|email|max:255|unique:users',
             'password'      => 'required|string|min:8|confirmed',
-            'address'       => 'max:500',
             'phone_number'  => 'max:20',
+
+            'location_region_code'      => 'max:225',
+            'location_province_code'    => 'max:225',
+            'location_city_code'        => 'max:225',
+            'location_barangay_code'    => 'max:225',
+            'location_barangay_street'  => 'max:225',
         ]);
 
         // Check if SSO session exists
@@ -128,10 +133,15 @@ class SsoController extends Controller
                 'last_name'     => $request->last_name,
                 'username'      => $request->username,
                 'email'         => $request->email,
-                'address'       => $request->address,
                 'phone_number'  => $request->phone_number,
                 'password'      => Hash::make($request->password),
                 'status'        => env('DEFAULT_MEMBER_STATUS'),
+
+                'location_region_code'       => $request->location_region_code,
+                'location_province_code'     => $request->location_province_code,
+                'location_city_code'         => $request->location_city_code,
+                'location_barangay_code'     => $request->location_barangay_code,
+                'location_barangay_street'   => $request->location_barangay_street,
             ]);
 
             DB::commit();

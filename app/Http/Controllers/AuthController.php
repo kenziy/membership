@@ -81,10 +81,10 @@ class AuthController extends Controller
 
         // Redirect based on user role
         if ($user->isAdmin()) {
-            return redirect()->route('admin.dashboard')->with('success', 'Welcome back, ' . $user->name . '!');
+            return redirect()->route('admin.dashboard')->with('success', 'Welcome back, ' . $user->first_name . '!');
         }
 
-        return redirect()->route('user.dashboard')->with('success', 'Welcome back, ' . $user->name . '!');
+        return redirect()->route('user.dashboard')->with('success', 'Welcome back, ' . $user->first_name . '!');
     }
 
     // Unified Register Method
@@ -104,10 +104,15 @@ class AuthController extends Controller
             'last_name'     => $request->last_name,
             'username'      => $request->username,
             'email'         => $request->email,
-            'address'       => $request->input('address'),
             'phone_number'  => $request->phone_number,
             'password'      => Hash::make($request->password),
             'status'        => env('DEFAULT_MEMBER_STATUS'),
+
+            'location_region_code'       => $request->input('location_region_code'),
+            'location_province_code'     => $request->input('location_province_code'),
+            'location_city_code'         => $request->input('location_city_code'),
+            'location_barangay_code'     => $request->input('location_barangay_code'),
+            'location_barangay_street'   => $request->input('location_barangay_street'),
         ];
 
         $user = User::create($userData);

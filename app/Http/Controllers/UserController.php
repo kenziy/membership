@@ -96,6 +96,12 @@ class UserController extends Controller
             'email'         => 'required|email|unique:users,email,' . $user->id,
             'address'       => 'max:500',
             'phone_number'  => 'max:20',
+
+            'location_region_code'      => 'max:225',
+            'location_province_code'    => 'max:225',
+            'location_city_code'        => 'max:225',
+            'location_barangay_code'    => 'max:225',
+            'location_barangay_street'  => 'max:225',
         ]);
 
         // Update user

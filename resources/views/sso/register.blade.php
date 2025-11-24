@@ -22,7 +22,7 @@
                 <form id="registerForm" class="space-y-6">
                     @csrf
 
-                    <!-- Full Name -->
+                    <h2 class="text-xl font-bold mb-4">User Information</h2>
                     <div>
                         <label for="first_name" class="block text-sm font-medium text-gray-700 mb-1">
                             First Name
@@ -46,19 +46,34 @@
                         >
                     </div>
 
+                    <!-- Email -->
                     <div>
-                        <label for="address" class="block text-sm font-medium text-gray-700 mb-1">
-                            Address
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">
+                            Email Address
                         </label>
                         <input 
-                            type="text" id="address" name="address" required
-                            placeholder="Enter your full address"
+                            type="email" id="email" name="email" required
+                            placeholder="Enter your email"
                             class="w-full py-3 px-4 rounded-lg border border-gray-300 
                                    focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition"
                         >
                     </div>
 
-                    <!-- Email -->
+                    <div>
+                        <label for="phone_number" class="block text-sm font-medium text-gray-700 mb-1">
+                            Phone Number
+                        </label>
+                        <input 
+                            type="text" id="phone_number" name="phone_number" required
+                            placeholder="Enter your phone number"
+                            class="w-full py-3 px-4 rounded-lg border border-gray-300 
+                                   focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition"
+                        >
+                    </div>
+
+                    <x-address />
+
+                    <h2 class="text-xl font-bold mb-4">Account</h2>
                     <div>
                         <label for="username" class="block text-sm font-medium text-gray-700 mb-1">
                             Username
@@ -92,31 +107,6 @@
                         <input 
                             type="password" id="password_confirmation" name="password_confirmation" required
                             placeholder="Confirm your password"
-                            class="w-full py-3 px-4 rounded-lg border border-gray-300 
-                                   focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition"
-                        >
-                    </div>
-
-                    <!-- Email -->
-                    <div>
-                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">
-                            Email Address
-                        </label>
-                        <input 
-                            type="email" id="email" name="email" required
-                            placeholder="Enter your email"
-                            class="w-full py-3 px-4 rounded-lg border border-gray-300 
-                                   focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition"
-                        >
-                    </div>
-
-                    <div>
-                        <label for="phone_number" class="block text-sm font-medium text-gray-700 mb-1">
-                            Phone Number
-                        </label>
-                        <input 
-                            type="text" id="phone_number" name="phone_number" required
-                            placeholder="Enter your phone number"
                             class="w-full py-3 px-4 rounded-lg border border-gray-300 
                                    focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition"
                         >

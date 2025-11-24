@@ -82,6 +82,12 @@
                 <form action="{{ route('user.profile.update') }}" method="POST" class="p-6 space-y-6">
                     @csrf
 
+                    <div>
+                        <label class="text-sm font-medium text-gray-700">Username</label>
+                        <input type="text" name="username" value="{{ $user->username }}"
+                               class="mt-1 block w-full rounded-lg border-gray-300 focus:ring-aether border p-2" required>
+                    </div>
+
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
                         <!-- Full Name -->
@@ -95,18 +101,6 @@
                             <label class="text-sm font-medium text-gray-700">Last Name</label>
                             <input type="text" name="name" value="{{ $user->last_name }}"
                                    class="mt-1 block w-full rounded-lg border-gray-300 focus:ring-aether border p-2" required>
-                        </div>
-
-                        <div>
-                            <label class="text-sm font-medium text-gray-700">Username</label>
-                            <input type="text" name="username" value="{{ $user->username }}"
-                                   class="mt-1 block w-full rounded-lg border-gray-300 focus:ring-aether border p-2" required>
-                        </div>
-
-                        <div>
-                            <label class="text-sm font-medium text-gray-700">Address</label>
-                            <input type="text" name="address" value="{{ $user->address }}"
-                                   class="mt-1 block w-full rounded-lg border-gray-300 focus:ring-aether border p-2" />
                         </div>
                     </div>
 
@@ -125,6 +119,14 @@
                         </div>
 
                     </div>
+
+                    <x-address
+                        :regionCode="$user->location_region_code"
+                        :provinceCode="$user->location_province_code"
+                        :cityCode="$user->location_city_code"
+                        :barangayCode="$user->location_barangay_code"
+                        :streetValue="$user->location_barangay_street"
+                    />
 
                     <!-- Save Button -->
                     <div class="pt-4">

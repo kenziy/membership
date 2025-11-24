@@ -25,6 +25,7 @@
                 <div class="space-y-4">
 
                     <!-- Name -->
+                    <h2 class="text-xl font-bold mb-4">User Information</h2>
                     <div>
                         <label for="first_name" class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
                         <input 
@@ -46,17 +47,34 @@
                         >
                     </div>
 
+                    <!-- Email -->
                     <div>
-                        <label for="address" class="block text-sm font-medium text-gray-700 mb-1">Address</label>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
                         <input 
-                            id="address" name="address" type="text" required
-                            placeholder="Enter your full address"
-                            value="{{ old('address') }}"
+                            id="email" name="email" type="email" required
+                            placeholder="Enter your email"
+                            value="{{ old('email') }}"
                             class="w-full py-3 px-4 rounded-lg border border-gray-300 
                                    focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition"
                         >
                     </div>
 
+                    <div>
+                        <label for="phone_number" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                        <input 
+                            id="phone_number" name="phone_number" type="text" required
+                            placeholder="Enter your phone number"
+                            value="{{ old('phone_number') }}"
+                            class="w-full py-3 px-4 rounded-lg border border-gray-300 
+                                   focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition"
+                        >
+                    </div>
+
+                    <div>
+                        <x-location />
+                    </div>
+
+                    <h2 class="text-xl font-bold mb-4">Account</h2>
                     <div>
                         <label for="username" class="block text-sm font-medium text-gray-700 mb-1">Username</label>
                         <input 
@@ -88,32 +106,6 @@
                                    focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition"
                         >
                     </div>
-
-                    <!-- Email -->
-                    <div>
-                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-                        <input 
-                            id="email" name="email" type="email" required
-                            placeholder="Enter your email"
-                            value="{{ old('email') }}"
-                            class="w-full py-3 px-4 rounded-lg border border-gray-300 
-                                   focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition"
-                        >
-                    </div>
-
-                    <div>
-                        <label for="phone_number" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-                        <input 
-                            id="phone_number" name="phone_number" type="text" required
-                            placeholder="Enter your phone number"
-                            value="{{ old('phone_number') }}"
-                            class="w-full py-3 px-4 rounded-lg border border-gray-300 
-                                   focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition"
-                        >
-                    </div>
-
-
-                    
 
                 </div>
 
