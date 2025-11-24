@@ -40,6 +40,18 @@
         <form method="POST" action="{{ route('admin.members.update', $user->id) }}" enctype="multipart/form-data">
             @csrf
             <!-- Name -->
+            <div class="">
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700">Username</label>
+                    <input
+                        type="text"
+                        name="username"
+                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm border p-2"
+                        value="{{ old('username', $user->username) }}"
+                        required
+                    >
+                </div>
+            </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="mb-4">
                     <label class="block text-sm font-medium text-gray-700">First Name</label>
@@ -62,28 +74,7 @@
                     >
                 </div>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="mb-4">
-                    <label class="block text-sm font-medium text-gray-700">Username</label>
-                    <input
-                        type="text"
-                        name="username"
-                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm border p-2"
-                        value="{{ old('username', $user->username) }}"
-                        required
-                    >
-                </div>
-                <div class="mb-4">
-                    <label class="block text-sm font-medium text-gray-700">Address</label>
-                    <input
-                        type="text"
-                        name="address"
-                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm border p-2"
-                        value="{{ old('address', $user->address) }}"
-                        required
-                    >
-                </div>
-            </div>
+            
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="mb-4">
                     <label class="block text-sm font-medium text-gray-700">Email</label>

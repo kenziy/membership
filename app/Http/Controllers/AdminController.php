@@ -78,10 +78,15 @@ class AdminController extends Controller
         $validated = $request->validate([
             'first_name'        => 'required|string|max:255',
             'last_name'         => 'required|string|max:255',
-            'address'           => 'string|max:500',
             'phone_number'      => 'string|max:500',
             'email'             => 'required|email|unique:users,email,' . $user->id,
             'status'            => 'required',
+
+            'location_region_code'     => 'string|max:225',
+            'location_province_code'   => 'string|max:225',
+            'location_city_code'       => 'string|max:225',
+            'location_barangay_code'   => 'string|max:225',
+            'location_barangay_street' => 'string|max:225',
         ]);
 
         $user->update($validated);
