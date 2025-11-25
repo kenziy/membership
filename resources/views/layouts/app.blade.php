@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Membership App')</title>
+    <title>@yield('title', 'Bitscalp')</title>
+    <link rel="icon" type="image/png" href="{{ url('images/logo.png') }}">
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -20,7 +21,7 @@
                 <div class="flex">
                     <div class="flex-shrink-0 flex items-center">
                         <a href="{{ url('/') }}">
-                            <img src="{{ url('/images/logo.png')}}" width="50" />
+                            <img src="{{ url('/images/bitscalp.png')}}" width="150" />
                         </a>
                     </div>
                     
@@ -182,7 +183,7 @@
 
             <!-- Logo + Description -->
             <div class="col-span-1 md:col-span-2 space-y-4">
-                <img src="{{ url('/images/logo.png')}}" width="50" /> Bitscalp Network
+                <img src="{{ url('/images/bitscalp.png')}}" width="150" />
 
                 <p class="text-sm leading-relaxed">
                     Join us in shaping the future. Invest in Bitscalp today and be part of our journey towards innovation, growth, and success.
