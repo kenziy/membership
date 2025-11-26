@@ -1,0 +1,17 @@
+{
+  "resources/css/aether.css": {
+    "file": "assets/aether-5fdc5e53.css",
+    "isEntry": true,
+    "src": "resources/css/aether.css"
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-4050e6de.css",
+    "isEntry": true,
+    "src": "resources/css/app.css"
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-db6683bb.js",
+    "isEntry": true,
+    "src": "resources/js/app.js"
+  }
+}
