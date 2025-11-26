@@ -71,7 +71,7 @@
                     </div>
 
                     <div>
-                        <x-location />
+                        <x-address />
                     </div>
 
                     <h2 class="text-xl font-bold mb-4">Account</h2>
